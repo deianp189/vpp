@@ -1,0 +1,849 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Web Wireframe1</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initWireframeDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Web Wireframe1		</span>
+<a onclick="javascript: showVpLink('MDS1-2425-PF-QuintaSiles.vpp://diagram/safDtkmGAqBwAQmp', 'Web Wireframe1\nMDS1-2425-PF-QuintaSiles.vpp://diagram/safDtkmGAqBwAQmp', 'Web Wireframe1', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="auto" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;">
+			<tr>
+				<td>
+<a href="javascript:showWireframeStatesDialog()"><span class="TableContent ItemLink">Show State Overview</span></a>				</td>
+				<td width="10px">
+				</td>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" id="selectShapeTafDtkmGAqBwAQmu">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramTafDtkmGAqBwAQmu', this.value);hideLinkPopup();showSpotLight('diagramTafDtkmGAqBwAQmu', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#TafDtkmGAqBwAQmu;.GfDtkmGAqBwAQmw|#TafDtkmGAqBwAQmu;.GfDtkmGAqBwAQmw|.GfDtkmGAqBwAQmw" id="option.GfDtkmGAqBwAQmw">Web Browser : Browser</option>
+<option value="shape|733.0|119.0|101.0|30.0|#TafDtkmGAqBwAQmu;C7eztkmGAqBwAQpN|#TafDtkmGAqBwAQmu;C7eztkmGAqBwAQpN|C7eztkmGAqBwAQpN" id="optionC7eztkmGAqBwAQpN">Registrar : Button</option>
+<option value="shape|888.0|119.0|63.0|30.0|#TafDtkmGAqBwAQmu;Y2.ztkmGAqBwAQpU|#TafDtkmGAqBwAQmu;Y2.ztkmGAqBwAQpU|Y2.ztkmGAqBwAQpU" id="optionY2.ztkmGAqBwAQpU">Log-in : Button</option>
+<option value="shape|17.0|85.0|672.0|100.0|#TafDtkmGAqBwAQmu;q5ObtkmGAqBwAQub|#TafDtkmGAqBwAQmu;q5ObtkmGAqBwAQub|q5ObtkmGAqBwAQub" id="optionq5ObtkmGAqBwAQub">Image : Image</option>
+<option value="shape|33.0|247.0|424.0|442.0|#TafDtkmGAqBwAQmu;8TlqdkmGAqBwARPR|#TafDtkmGAqBwAQmu;8TlqdkmGAqBwARPR|8TlqdkmGAqBwARPR" id="option8TlqdkmGAqBwARPR">Panel : Panel</option>
+<option value="shape|207.0|258.0|77.0|30.0|#TafDtkmGAqBwAQmu;WbFrtkmGAqBwAQsc|#TafDtkmGAqBwAQmu;WbFrtkmGAqBwAQsc|WbFrtkmGAqBwAQsc" id="optionWbFrtkmGAqBwAQsc">Tendencias : Label</option>
+<option value="shape|42.0|247.0|32.0|37.0|#TafDtkmGAqBwAQmu;K9VqdkmGAqBwARPg|#TafDtkmGAqBwAQmu;K9VqdkmGAqBwARPg|K9VqdkmGAqBwARPg" id="optionK9VqdkmGAqBwARPg"># : Label</option>
+<option value="shape|42.0|289.0|405.0|383.0|#TafDtkmGAqBwAQmu;3K0LtkmGAqBwAQrv|#TafDtkmGAqBwAQmu;3K0LtkmGAqBwAQrv|3K0LtkmGAqBwAQrv" id="option3K0LtkmGAqBwAQrv">List Group : List Group</option>
+<option value="shape|55.0|289.0|376.0|45.0|#TafDtkmGAqBwAQmu;42IPDkmGAqBwAQyb|#TafDtkmGAqBwAQmu;42IPDkmGAqBwAQyb|42IPDkmGAqBwAQyb" id="option42IPDkmGAqBwAQyb">Button : Button</option>
+<option value="shape|55.0|336.0|376.0|45.0|#TafDtkmGAqBwAQmu;SkUPDkmGAqBwAQyy|#TafDtkmGAqBwAQmu;SkUPDkmGAqBwAQyy|SkUPDkmGAqBwAQyy" id="optionSkUPDkmGAqBwAQyy">Button : Button</option>
+<option value="shape|55.0|381.0|376.0|45.0|#TafDtkmGAqBwAQmu;Ck0PDkmGAqBwAQzC|#TafDtkmGAqBwAQmu;Ck0PDkmGAqBwAQzC|Ck0PDkmGAqBwAQzC" id="optionCk0PDkmGAqBwAQzC">Button : Button</option>
+<option value="shape|55.0|427.0|376.0|45.0|#TafDtkmGAqBwAQmu;oKMPDkmGAqBwAQzO|#TafDtkmGAqBwAQmu;oKMPDkmGAqBwAQzO|oKMPDkmGAqBwAQzO" id="optionoKMPDkmGAqBwAQzO">Button : Button</option>
+<option value="shape|206.0|582.0|20.0|68.0|#TafDtkmGAqBwAQmu;PayPDkmGAqBwAQz8|#TafDtkmGAqBwAQmu;PayPDkmGAqBwAQz8|PayPDkmGAqBwAQz8" id="optionPayPDkmGAqBwAQz8">· : Label</option>
+<option value="shape|235.0|582.0|20.0|67.0|#TafDtkmGAqBwAQmu;KZqPDkmGAqBwAQ0H|#TafDtkmGAqBwAQmu;KZqPDkmGAqBwAQ0H|KZqPDkmGAqBwAQ0H" id="optionKZqPDkmGAqBwAQ0H">· : Label</option>
+<option value="shape|263.0|582.0|20.0|68.0|#TafDtkmGAqBwAQmu;u5aPDkmGAqBwAQ0S|#TafDtkmGAqBwAQmu;u5aPDkmGAqBwAQ0S|u5aPDkmGAqBwAQ0S" id="optionu5aPDkmGAqBwAQ0S">· : Label</option>
+<option value="shape|55.0|472.0|376.0|45.0|#TafDtkmGAqBwAQmu;cNmPDkmGAqBwAQ0p|#TafDtkmGAqBwAQmu;cNmPDkmGAqBwAQ0p|cNmPDkmGAqBwAQ0p" id="optioncNmPDkmGAqBwAQ0p">Button : Button</option>
+<option value="shape|55.0|518.0|376.0|45.0|#TafDtkmGAqBwAQmu;rWyBv0mGAqAAJyDe|#TafDtkmGAqBwAQmu;rWyBv0mGAqAAJyDe|rWyBv0mGAqAAJyDe" id="optionrWyBv0mGAqAAJyDe">Button : Button</option>
+<option value="shape|55.0|563.0|376.0|45.0|#TafDtkmGAqBwAQmu;2mqBv0mGAqAAJyDu|#TafDtkmGAqBwAQmu;2mqBv0mGAqAAJyDu|2mqBv0mGAqAAJyDu" id="option2mqBv0mGAqAAJyDu">Button : Button</option>
+<option value="shape|571.0|247.0|424.0|442.0|#TafDtkmGAqBwAQmu;6AIadkmGAqBwARRM|#TafDtkmGAqBwAQmu;6AIadkmGAqBwARRM|6AIadkmGAqBwARRM" id="option6AIadkmGAqBwARRM">Panel : Panel</option>
+<option value="shape|680.0|258.0|207.0|23.0|#TafDtkmGAqBwAQmu;MPEbtkmGAqBwAQtV|#TafDtkmGAqBwAQmu;MPEbtkmGAqBwAQtV|MPEbtkmGAqBwAQtV" id="optionMPEbtkmGAqBwAQtV">Listado de usuarios registrados
+ : Label</option>
+<option value="shape|580.0|247.0|31.0|46.0|#TafDtkmGAqBwAQmu;GAIadkmGAqBwARRO|#TafDtkmGAqBwAQmu;GAIadkmGAqBwARRO|GAIadkmGAqBwARRO" id="optionGAIadkmGAqBwARRO">@ : Label</option>
+<option value="shape|580.0|289.0|405.0|383.0|#TafDtkmGAqBwAQmu;WAIadkmGAqBwARRS|#TafDtkmGAqBwAQmu;WAIadkmGAqBwARRS|WAIadkmGAqBwARRS" id="optionWAIadkmGAqBwARRS">List Group : List Group</option>
+<option value="shape|745.0|592.0|20.0|68.0|#TafDtkmGAqBwAQmu;DSn.v0mGAqAAJx_5|#TafDtkmGAqBwAQmu;DSn.v0mGAqAAJx_5|DSn.v0mGAqAAJx_5" id="optionDSn.v0mGAqAAJx_5">· : Label</option>
+<option value="shape|774.0|592.0|20.0|67.0|#TafDtkmGAqBwAQmu;_Sn.v0mGAqAAJx_.|#TafDtkmGAqBwAQmu;_Sn.v0mGAqAAJx_.|_Sn.v0mGAqAAJx_." id="option_Sn.v0mGAqAAJx_.">· : Label</option>
+<option value="shape|802.0|592.0|20.0|68.0|#TafDtkmGAqBwAQmu;0yn.v0mGAqAAJyAD|#TafDtkmGAqBwAQmu;0yn.v0mGAqAAJyAD|0yn.v0mGAqAAJyAD" id="option0yn.v0mGAqAAJyAD">· : Label</option>
+<option value="shape|588.0|293.0|389.0|53.0|#TafDtkmGAqBwAQmu;ypx2dkmGAqBwARnn|#TafDtkmGAqBwAQmu;ypx2dkmGAqBwARnn|ypx2dkmGAqBwARnn" id="optionypx2dkmGAqBwARnn">Panel : Panel</option>
+<option value="shape|594.0|297.0|44.0|45.0|#TafDtkmGAqBwAQmu;Kpx2dkmGAqBwARnp|#TafDtkmGAqBwAQmu;Kpx2dkmGAqBwARnp|Kpx2dkmGAqBwARnp" id="optionKpx2dkmGAqBwARnp">Button : Button</option>
+<option value="shape|651.0|308.0|184.0|23.0|#TafDtkmGAqBwAQmu;6px2dkmGAqBwARns|#TafDtkmGAqBwAQmu;6px2dkmGAqBwARns|6px2dkmGAqBwARns" id="option6px2dkmGAqBwARns">@nombreusuario
+ : Label</option>
+<option value="shape|588.0|348.0|389.0|53.0|#TafDtkmGAqBwAQmu;5_L2dkmGAqBwARob|#TafDtkmGAqBwAQmu;5_L2dkmGAqBwARob|5_L2dkmGAqBwARob" id="option5_L2dkmGAqBwARob">Panel : Panel</option>
+<option value="shape|594.0|352.0|44.0|45.0|#TafDtkmGAqBwAQmu;1_L2dkmGAqBwARoh|#TafDtkmGAqBwAQmu;1_L2dkmGAqBwARoh|1_L2dkmGAqBwARoh" id="option1_L2dkmGAqBwARoh">Button : Button</option>
+<option value="shape|651.0|363.0|184.0|23.0|#TafDtkmGAqBwAQmu;F_L2dkmGAqBwARod|#TafDtkmGAqBwAQmu;F_L2dkmGAqBwARod|F_L2dkmGAqBwARod" id="optionF_L2dkmGAqBwARod">@nombreusuario
+ : Label</option>
+<option value="shape|588.0|404.0|389.0|53.0|#TafDtkmGAqBwAQmu;Zyb2dkmGAqBwARo4|#TafDtkmGAqBwAQmu;Zyb2dkmGAqBwARo4|Zyb2dkmGAqBwARo4" id="optionZyb2dkmGAqBwARo4">Panel : Panel</option>
+<option value="shape|594.0|408.0|44.0|45.0|#TafDtkmGAqBwAQmu;lyb2dkmGAqBwARo.|#TafDtkmGAqBwAQmu;lyb2dkmGAqBwARo.|lyb2dkmGAqBwARo." id="optionlyb2dkmGAqBwARo.">Button : Button</option>
+<option value="shape|651.0|419.0|184.0|23.0|#TafDtkmGAqBwAQmu;Zyb2dkmGAqBwARo6|#TafDtkmGAqBwAQmu;Zyb2dkmGAqBwARo6|Zyb2dkmGAqBwARo6" id="optionZyb2dkmGAqBwARo6">@nombreusuario
+ : Label</option>
+<option value="shape|588.0|462.0|389.0|53.0|#TafDtkmGAqBwAQmu;raABv0mGAqAAJyA7|#TafDtkmGAqBwAQmu;raABv0mGAqAAJyA7|raABv0mGAqAAJyA7" id="optionraABv0mGAqAAJyA7">Panel : Panel</option>
+<option value="shape|594.0|466.0|44.0|45.0|#TafDtkmGAqBwAQmu;baABv0mGAqAAJyA9|#TafDtkmGAqBwAQmu;baABv0mGAqAAJyA9|baABv0mGAqAAJyA9" id="optionbaABv0mGAqAAJyA9">Button : Button</option>
+<option value="shape|651.0|477.0|184.0|23.0|#TafDtkmGAqBwAQmu;naABv0mGAqAAJyBA|#TafDtkmGAqBwAQmu;naABv0mGAqAAJyBA|naABv0mGAqAAJyBA" id="optionnaABv0mGAqAAJyBA">@nombreusuario
+ : Label</option>
+<option value="shape|588.0|519.0|389.0|53.0|#TafDtkmGAqBwAQmu;7JQBv0mGAqAAJyBQ|#TafDtkmGAqBwAQmu;7JQBv0mGAqAAJyBQ|7JQBv0mGAqAAJyBQ" id="option7JQBv0mGAqAAJyBQ">Panel : Panel</option>
+<option value="shape|594.0|523.0|44.0|45.0|#TafDtkmGAqBwAQmu;HJQBv0mGAqAAJyBS|#TafDtkmGAqBwAQmu;HJQBv0mGAqAAJyBS|HJQBv0mGAqAAJyBS" id="optionHJQBv0mGAqAAJyBS">Button : Button</option>
+<option value="shape|651.0|534.0|184.0|23.0|#TafDtkmGAqBwAQmu;XJQBv0mGAqAAJyBV|#TafDtkmGAqBwAQmu;XJQBv0mGAqAAJyBV|XJQBv0mGAqAAJyBV" id="optionXJQBv0mGAqAAJyBV">@nombreusuario
+ : Label</option>
+<option value="shape|588.0|576.0|389.0|53.0|#TafDtkmGAqBwAQmu;eeYBv0mGAqAAJyBz|#TafDtkmGAqBwAQmu;eeYBv0mGAqAAJyBz|eeYBv0mGAqAAJyBz" id="optioneeYBv0mGAqAAJyBz">Panel : Panel</option>
+<option value="shape|594.0|580.0|44.0|45.0|#TafDtkmGAqBwAQmu;BeYBv0mGAqAAJyB1|#TafDtkmGAqBwAQmu;BeYBv0mGAqAAJyB1|BeYBv0mGAqAAJyB1" id="optionBeYBv0mGAqAAJyB1">Button : Button</option>
+<option value="shape|651.0|591.0|184.0|23.0|#TafDtkmGAqBwAQmu;xeYBv0mGAqAAJyB4|#TafDtkmGAqBwAQmu;xeYBv0mGAqAAJyB4|xeYBv0mGAqAAJyB4" id="optionxeYBv0mGAqAAJyB4">@nombreusuario
+ : Label</option>
+</select>							</td>
+						</tr>
+					</table>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" style="display: none;" id="selectShapeXmTbtkmGAqBwAQwI">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramXmTbtkmGAqBwAQwI', this.value);hideLinkPopup();showSpotLight('diagramXmTbtkmGAqBwAQwI', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#XmTbtkmGAqBwAQwI;.GfDtkmGAqBwAQmw|#XmTbtkmGAqBwAQwI;.GfDtkmGAqBwAQmw|.GfDtkmGAqBwAQmw" id="option.GfDtkmGAqBwAQmw">Web Browser : Browser</option>
+<option value="shape|238.0|236.0|561.0|193.0|#XmTbtkmGAqBwAQwI;03ngdkmGAqBwARKv|#XmTbtkmGAqBwAQwI;03ngdkmGAqBwARKv|03ngdkmGAqBwARKv" id="option03ngdkmGAqBwARKv">Panel : Panel</option>
+<option value="shape|270.0|271.0|489.0|30.0|#XmTbtkmGAqBwAQwI;RwGntkmGAqBwAQ0G|#XmTbtkmGAqBwAQwI;RwGntkmGAqBwAQ0G|RwGntkmGAqBwAQ0G" id="optionRwGntkmGAqBwAQ0G">Email/Correo Electrónico : Text Field</option>
+<option value="shape|270.0|332.0|489.0|30.0|#XmTbtkmGAqBwAQwI;EImntkmGAqBwAQ0Q|#XmTbtkmGAqBwAQwI;EImntkmGAqBwAQ0Q|EImntkmGAqBwAQ0Q" id="optionEImntkmGAqBwAQ0Q">Contraseña : Text Field</option>
+<option value="shape|311.0|144.0|407.0|28.0|#XmTbtkmGAqBwAQwI;u6.ntkmGAqBwAQ0h|#XmTbtkmGAqBwAQwI;u6.ntkmGAqBwAQ0h|u6.ntkmGAqBwAQ0h" id="optionu6.ntkmGAqBwAQ0h">Introduzca su correo y contraseña : Label</option>
+<option value="shape|338.0|482.0|100.0|30.0|#XmTbtkmGAqBwAQwI;89_ntkmGAqBwAQ1w|#XmTbtkmGAqBwAQwI;89_ntkmGAqBwAQ1w|89_ntkmGAqBwAQ1w" id="option89_ntkmGAqBwAQ1w">Cancelar : Button</option>
+<option value="shape|590.0|482.0|100.0|30.0|#XmTbtkmGAqBwAQwI;TxQXtkmGAqBwAQ15|#XmTbtkmGAqBwAQwI;TxQXtkmGAqBwAQ15|TxQXtkmGAqBwAQ15" id="optionTxQXtkmGAqBwAQ15">Loggear : Button</option>
+<option value="shape|500.0|567.0|29.0|28.0|#XmTbtkmGAqBwAQwI;rX0XtkmGAqBwAQ2d|#XmTbtkmGAqBwAQwI;rX0XtkmGAqBwAQ2d|rX0XtkmGAqBwAQ2d" id="optionrX0XtkmGAqBwAQ2d">Image : Image</option>
+<option value="shape|438.0|605.0|152.0|30.0|#XmTbtkmGAqBwAQwI;yzWXtkmGAqBwAQ3a|#XmTbtkmGAqBwAQwI;yzWXtkmGAqBwAQ3a|yzWXtkmGAqBwAQ3a" id="optionyzWXtkmGAqBwAQ3a">Loggeo mediante google : Button</option>
+</select>							</td>
+						</tr>
+					</table>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" style="display: none;" id="selectShapeKvKmaUmGAqBwATCy">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramKvKmaUmGAqBwATCy', this.value);hideLinkPopup();showSpotLight('diagramKvKmaUmGAqBwATCy', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#KvKmaUmGAqBwATCy;.GfDtkmGAqBwAQmw|#KvKmaUmGAqBwATCy;.GfDtkmGAqBwAQmw|.GfDtkmGAqBwAQmw" id="option.GfDtkmGAqBwAQmw">Web Browser : Browser</option>
+<option value="shape|238.0|236.0|561.0|193.0|#KvKmaUmGAqBwATCy;03ngdkmGAqBwARKv|#KvKmaUmGAqBwATCy;03ngdkmGAqBwARKv|03ngdkmGAqBwARKv" id="option03ngdkmGAqBwARKv">Panel : Panel</option>
+<option value="shape|270.0|271.0|489.0|30.0|#KvKmaUmGAqBwATCy;RwGntkmGAqBwAQ0G|#KvKmaUmGAqBwATCy;RwGntkmGAqBwAQ0G|RwGntkmGAqBwAQ0G" id="optionRwGntkmGAqBwAQ0G">Email/Correo Electrónico : Text Field</option>
+<option value="shape|270.0|332.0|489.0|30.0|#KvKmaUmGAqBwATCy;EImntkmGAqBwAQ0Q|#KvKmaUmGAqBwATCy;EImntkmGAqBwAQ0Q|EImntkmGAqBwAQ0Q" id="optionEImntkmGAqBwAQ0Q">Contraseña : Text Field</option>
+<option value="shape|311.0|144.0|407.0|28.0|#KvKmaUmGAqBwATCy;u6.ntkmGAqBwAQ0h|#KvKmaUmGAqBwATCy;u6.ntkmGAqBwAQ0h|u6.ntkmGAqBwAQ0h" id="optionu6.ntkmGAqBwAQ0h">Introduzca su correo y contraseña : Label</option>
+<option value="shape|338.0|482.0|100.0|30.0|#KvKmaUmGAqBwATCy;89_ntkmGAqBwAQ1w|#KvKmaUmGAqBwATCy;89_ntkmGAqBwAQ1w|89_ntkmGAqBwAQ1w" id="option89_ntkmGAqBwAQ1w">Cancelar : Button</option>
+<option value="shape|590.0|482.0|100.0|30.0|#KvKmaUmGAqBwATCy;TxQXtkmGAqBwAQ15|#KvKmaUmGAqBwATCy;TxQXtkmGAqBwAQ15|TxQXtkmGAqBwAQ15" id="optionTxQXtkmGAqBwAQ15">Loggear : Button</option>
+<option value="shape|500.0|567.0|29.0|28.0|#KvKmaUmGAqBwATCy;rX0XtkmGAqBwAQ2d|#KvKmaUmGAqBwATCy;rX0XtkmGAqBwAQ2d|rX0XtkmGAqBwAQ2d" id="optionrX0XtkmGAqBwAQ2d">Image : Image</option>
+<option value="shape|437.0|605.0|152.0|30.0|#KvKmaUmGAqBwATCy;yzWXtkmGAqBwAQ3a|#KvKmaUmGAqBwATCy;yzWXtkmGAqBwAQ3a|yzWXtkmGAqBwAQ3a" id="optionyzWXtkmGAqBwAQ3a">Loggeo mediante google : Button</option>
+<option value="shape|816.0|312.0|185.0|70.0|#KvKmaUmGAqBwATCy;ndlmaUmGAqBwATIn|#KvKmaUmGAqBwATCy;ndlmaUmGAqBwATIn|ndlmaUmGAqBwATIn" id="optionndlmaUmGAqBwATIn">La contraseña no tiene el formato correcto: (La contraseña debe contener entre 8 y 14 caracteres, una letra mayúscula, un
+carácter especial) : Label</option>
+</select>							</td>
+						</tr>
+					</table>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" style="display: none;" id="selectShapehpN3tkmGAqBwAQ4J">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramhpN3tkmGAqBwAQ4J', this.value);hideLinkPopup();showSpotLight('diagramhpN3tkmGAqBwAQ4J', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#hpN3tkmGAqBwAQ4J;.GfDtkmGAqBwAQmw|#hpN3tkmGAqBwAQ4J;.GfDtkmGAqBwAQmw|.GfDtkmGAqBwAQmw" id="option.GfDtkmGAqBwAQmw">Web Browser : Browser</option>
+<option value="shape|235.0|165.0|559.0|487.0|#hpN3tkmGAqBwAQ4J;kvKAdkmGAqBwARFF|#hpN3tkmGAqBwAQ4J;kvKAdkmGAqBwARFF|kvKAdkmGAqBwARFF" id="optionkvKAdkmGAqBwARFF">Panel : Panel</option>
+<option value="shape|271.0|195.0|489.0|30.0|#hpN3tkmGAqBwAQ4J;cdVvtkmGAqBwAQ.F|#hpN3tkmGAqBwAQ4J;cdVvtkmGAqBwAQ.F|cdVvtkmGAqBwAQ.F" id="optioncdVvtkmGAqBwAQ.F">Identificador del usuario : Text Field</option>
+<option value="shape|271.0|247.0|489.0|30.0|#hpN3tkmGAqBwAQ4J;5fNvtkmGAqBwAQ.V|#hpN3tkmGAqBwAQ4J;5fNvtkmGAqBwAQ.V|5fNvtkmGAqBwAQ.V" id="option5fNvtkmGAqBwAQ.V">Descripción : Text Field</option>
+<option value="shape|271.0|294.0|489.0|30.0|#hpN3tkmGAqBwAQ4J;pltvtkmGAqBwAQ.b|#hpN3tkmGAqBwAQ4J;pltvtkmGAqBwAQ.b|pltvtkmGAqBwAQ.b" id="optionpltvtkmGAqBwAQ.b">Email/Correo Electrónico : Text Field</option>
+<option value="shape|271.0|341.0|489.0|30.0|#hpN3tkmGAqBwAQ4J;fO9vtkmGAqBwAQ.j|#hpN3tkmGAqBwAQ4J;fO9vtkmGAqBwAQ.j|fO9vtkmGAqBwAQ.j" id="optionfO9vtkmGAqBwAQ.j">Contraseña : Text Field</option>
+<option value="shape|271.0|388.0|489.0|30.0|#hpN3tkmGAqBwAQ4J;DijvtkmGAqBwAQ.v|#hpN3tkmGAqBwAQ4J;DijvtkmGAqBwAQ.v|DijvtkmGAqBwAQ.v" id="optionDijvtkmGAqBwAQ.v">Confirmar contraseña : Text Field</option>
+<option value="shape|286.0|462.0|100.0|100.0|#hpN3tkmGAqBwAQ4J;N4ggdkmGAqBwARGf|#hpN3tkmGAqBwAQ4J;N4ggdkmGAqBwARGf|N4ggdkmGAqBwARGf" id="optionN4ggdkmGAqBwARGf">Image : Image</option>
+<option value="shape|459.0|462.0|289.0|100.0|#hpN3tkmGAqBwAQ4J;zpggdkmGAqBwARGn|#hpN3tkmGAqBwAQ4J;zpggdkmGAqBwARGn|zpggdkmGAqBwARGn" id="optionzpggdkmGAqBwARGn">Image : Image</option>
+<option value="shape|281.0|572.0|111.0|23.0|#hpN3tkmGAqBwAQ4J;jGkgdkmGAqBwARHY|#hpN3tkmGAqBwAQ4J;jGkgdkmGAqBwARHY|jGkgdkmGAqBwARHY" id="optionjGkgdkmGAqBwARHY">Imagen de perfil : Label</option>
+<option value="shape|548.0|572.0|111.0|23.0|#hpN3tkmGAqBwAQ4J;MZsgdkmGAqBwARHq|#hpN3tkmGAqBwAQ4J;MZsgdkmGAqBwARHq|MZsgdkmGAqBwARHq" id="optionMZsgdkmGAqBwARHq">Imagen de fondo
+ : Label</option>
+<option value="shape|595.0|683.0|100.0|30.0|#hpN3tkmGAqBwAQ4J;i12AdkmGAqBwARFb|#hpN3tkmGAqBwAQ4J;i12AdkmGAqBwARFb|i12AdkmGAqBwARFb" id="optioni12AdkmGAqBwARFb">Confirmar : Button</option>
+<option value="shape|312.0|683.0|100.0|30.0|#hpN3tkmGAqBwAQ4J;CPGAdkmGAqBwARFQ|#hpN3tkmGAqBwAQ4J;CPGAdkmGAqBwARFQ|CPGAdkmGAqBwARFQ" id="optionCPGAdkmGAqBwARFQ">Cancelar : Button</option>
+<option value="shape|295.0|97.0|438.0|36.0|#hpN3tkmGAqBwAQ4J;8qXvtkmGAqBwARAe|#hpN3tkmGAqBwAQ4J;8qXvtkmGAqBwARAe|8qXvtkmGAqBwARAe" id="option8qXvtkmGAqBwARAe">Introduzca sus datos para el registro
+ : Label</option>
+</select>							</td>
+						</tr>
+					</table>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" style="display: none;" id="selectShapeyQUmaUmGAqBwAS4K">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramyQUmaUmGAqBwAS4K', this.value);hideLinkPopup();showSpotLight('diagramyQUmaUmGAqBwAS4K', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#yQUmaUmGAqBwAS4K;.GfDtkmGAqBwAQmw|#yQUmaUmGAqBwAS4K;.GfDtkmGAqBwAQmw|.GfDtkmGAqBwAQmw" id="option.GfDtkmGAqBwAQmw">Web Browser : Browser</option>
+<option value="shape|235.0|165.0|559.0|487.0|#yQUmaUmGAqBwAS4K;kvKAdkmGAqBwARFF|#yQUmaUmGAqBwAS4K;kvKAdkmGAqBwARFF|kvKAdkmGAqBwARFF" id="optionkvKAdkmGAqBwARFF">Panel : Panel</option>
+<option value="shape|271.0|195.0|489.0|30.0|#yQUmaUmGAqBwAS4K;cdVvtkmGAqBwAQ.F|#yQUmaUmGAqBwAS4K;cdVvtkmGAqBwAQ.F|cdVvtkmGAqBwAQ.F" id="optioncdVvtkmGAqBwAQ.F">Identificador del usuario : Text Field</option>
+<option value="shape|271.0|247.0|489.0|30.0|#yQUmaUmGAqBwAS4K;5fNvtkmGAqBwAQ.V|#yQUmaUmGAqBwAS4K;5fNvtkmGAqBwAQ.V|5fNvtkmGAqBwAQ.V" id="option5fNvtkmGAqBwAQ.V">Descripción : Text Field</option>
+<option value="shape|271.0|294.0|489.0|30.0|#yQUmaUmGAqBwAS4K;pltvtkmGAqBwAQ.b|#yQUmaUmGAqBwAS4K;pltvtkmGAqBwAQ.b|pltvtkmGAqBwAQ.b" id="optionpltvtkmGAqBwAQ.b">Email/Correo Electrónico : Text Field</option>
+<option value="shape|271.0|341.0|489.0|30.0|#yQUmaUmGAqBwAS4K;fO9vtkmGAqBwAQ.j|#yQUmaUmGAqBwAS4K;fO9vtkmGAqBwAQ.j|fO9vtkmGAqBwAQ.j" id="optionfO9vtkmGAqBwAQ.j">Contraseña : Text Field</option>
+<option value="shape|271.0|388.0|489.0|30.0|#yQUmaUmGAqBwAS4K;DijvtkmGAqBwAQ.v|#yQUmaUmGAqBwAS4K;DijvtkmGAqBwAQ.v|DijvtkmGAqBwAQ.v" id="optionDijvtkmGAqBwAQ.v">Confirmar contraseña : Text Field</option>
+<option value="shape|286.0|462.0|100.0|100.0|#yQUmaUmGAqBwAS4K;N4ggdkmGAqBwARGf|#yQUmaUmGAqBwAS4K;N4ggdkmGAqBwARGf|N4ggdkmGAqBwARGf" id="optionN4ggdkmGAqBwARGf">Image : Image</option>
+<option value="shape|459.0|462.0|289.0|100.0|#yQUmaUmGAqBwAS4K;zpggdkmGAqBwARGn|#yQUmaUmGAqBwAS4K;zpggdkmGAqBwARGn|zpggdkmGAqBwARGn" id="optionzpggdkmGAqBwARGn">Image : Image</option>
+<option value="shape|281.0|572.0|111.0|23.0|#yQUmaUmGAqBwAS4K;jGkgdkmGAqBwARHY|#yQUmaUmGAqBwAS4K;jGkgdkmGAqBwARHY|jGkgdkmGAqBwARHY" id="optionjGkgdkmGAqBwARHY">Imagen de perfil : Label</option>
+<option value="shape|548.0|572.0|111.0|23.0|#yQUmaUmGAqBwAS4K;MZsgdkmGAqBwARHq|#yQUmaUmGAqBwAS4K;MZsgdkmGAqBwARHq|MZsgdkmGAqBwARHq" id="optionMZsgdkmGAqBwARHq">Imagen de fondo
+ : Label</option>
+<option value="shape|595.0|683.0|100.0|30.0|#yQUmaUmGAqBwAS4K;i12AdkmGAqBwARFb|#yQUmaUmGAqBwAS4K;i12AdkmGAqBwARFb|i12AdkmGAqBwARFb" id="optioni12AdkmGAqBwARFb">Confirmar : Button</option>
+<option value="shape|312.0|683.0|100.0|30.0|#yQUmaUmGAqBwAS4K;CPGAdkmGAqBwARFQ|#yQUmaUmGAqBwAS4K;CPGAdkmGAqBwARFQ|CPGAdkmGAqBwARFQ" id="optionCPGAdkmGAqBwARFQ">Cancelar : Button</option>
+<option value="shape|295.0|97.0|438.0|36.0|#yQUmaUmGAqBwAS4K;8qXvtkmGAqBwARAe|#yQUmaUmGAqBwAS4K;8qXvtkmGAqBwARAe|8qXvtkmGAqBwARAe" id="option8qXvtkmGAqBwARAe">Introduzca sus datos para el registro
+ : Label</option>
+<option value="shape|805.0|341.0|185.0|70.0|#yQUmaUmGAqBwAS4K;xS6maUmGAqBwATG7|#yQUmaUmGAqBwAS4K;xS6maUmGAqBwATG7|xS6maUmGAqBwATG7" id="optionxS6maUmGAqBwATG7">La contraseña no tiene el formato correcto: (La contraseña debe contener entre 8 y 14 caracteres, una letra mayúscula, un
+carácter especial) : Label</option>
+</select>							</td>
+						</tr>
+					</table>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" style="display: none;" id="selectShapehznnDkmGAqBwAQhI">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramhznnDkmGAqBwAQhI', this.value);hideLinkPopup();showSpotLight('diagramhznnDkmGAqBwAQhI', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#hznnDkmGAqBwAQhI;.GfDtkmGAqBwAQmw|#hznnDkmGAqBwAQhI;.GfDtkmGAqBwAQmw|.GfDtkmGAqBwAQmw" id="option.GfDtkmGAqBwAQmw">Web Browser : Browser</option>
+<option value="shape|115.0|183.0|799.0|586.0|#hznnDkmGAqBwAQhI;8TlqdkmGAqBwARPR|#hznnDkmGAqBwAQhI;8TlqdkmGAqBwARPR|8TlqdkmGAqBwARPR" id="option8TlqdkmGAqBwARPR">Panel : Panel</option>
+<option value="shape|485.0|195.0|58.0|30.0|#hznnDkmGAqBwAQhI;WbFrtkmGAqBwAQsc|#hznnDkmGAqBwAQhI;WbFrtkmGAqBwAQsc|WbFrtkmGAqBwAQsc" id="optionWbFrtkmGAqBwAQsc">Hashtag : Label</option>
+<option value="shape|124.0|225.0|780.0|544.0|#hznnDkmGAqBwAQhI;3K0LtkmGAqBwAQrv|#hznnDkmGAqBwAQhI;3K0LtkmGAqBwAQrv|3K0LtkmGAqBwAQrv" id="option3K0LtkmGAqBwAQrv">List Group : List Group</option>
+<option value="shape|133.0|228.0|762.0|53.0|#hznnDkmGAqBwAQhI;PpVWdkmGAqBwARks|#hznnDkmGAqBwAQhI;PpVWdkmGAqBwARks|PpVWdkmGAqBwARks" id="optionPpVWdkmGAqBwARks">Panel : Panel</option>
+<option value="shape|196.0|243.0|184.0|23.0|#hznnDkmGAqBwAQhI;AZVWdkmGAqBwARkx|#hznnDkmGAqBwAQhI;AZVWdkmGAqBwARkx|AZVWdkmGAqBwARkx" id="optionAZVWdkmGAqBwARkx">&lt;Texto del tweet&gt; #ejemplo
+ : Label</option>
+<option value="shape|139.0|232.0|44.0|45.0|#hznnDkmGAqBwAQhI;fpVWdkmGAqBwARku|#hznnDkmGAqBwAQhI;fpVWdkmGAqBwARku|fpVWdkmGAqBwARku" id="optionfpVWdkmGAqBwARku">Button : Button</option>
+<option value="shape|774.0|243.0|100.0|23.0|#hznnDkmGAqBwAQhI;wZVWdkmGAqBwARk1|#hznnDkmGAqBwAQhI;wZVWdkmGAqBwARk1|wZVWdkmGAqBwARk1" id="optionwZVWdkmGAqBwARk1">🔁2k      ♥20k   : Label</option>
+<option value="shape|132.0|284.0|762.0|53.0|#hznnDkmGAqBwAQhI;ceAWdkmGAqBwARjA|#hznnDkmGAqBwAQhI;ceAWdkmGAqBwARjA|ceAWdkmGAqBwARjA" id="optionceAWdkmGAqBwARjA">Panel : Panel</option>
+<option value="shape|195.0|299.0|184.0|23.0|#hznnDkmGAqBwAQhI;wk86dkmGAqBwARXm|#hznnDkmGAqBwAQhI;wk86dkmGAqBwARXm|wk86dkmGAqBwARXm" id="optionwk86dkmGAqBwARXm">&lt;Texto del tweet&gt; #ejemplo
+ : Label</option>
+<option value="shape|138.0|288.0|44.0|45.0|#hznnDkmGAqBwAQhI;sEamdkmGAqBwARhj|#hznnDkmGAqBwAQhI;sEamdkmGAqBwARhj|sEamdkmGAqBwARhj" id="optionsEamdkmGAqBwARhj">Button : Button</option>
+<option value="shape|774.0|299.0|100.0|23.0|#hznnDkmGAqBwAQhI;yAEGdkmGAqBwARb4|#hznnDkmGAqBwAQhI;yAEGdkmGAqBwARb4|yAEGdkmGAqBwARb4" id="optionyAEGdkmGAqBwARb4">🔁200    ♥15k   : Label</option>
+<option value="shape|132.0|343.0|762.0|53.0|#hznnDkmGAqBwAQhI;f3tWdkmGAqBwARlW|#hznnDkmGAqBwAQhI;f3tWdkmGAqBwARlW|f3tWdkmGAqBwARlW" id="optionf3tWdkmGAqBwARlW">Panel : Panel</option>
+<option value="shape|195.0|358.0|184.0|23.0|#hznnDkmGAqBwAQhI;gPtWdkmGAqBwARlb|#hznnDkmGAqBwAQhI;gPtWdkmGAqBwARlb|gPtWdkmGAqBwARlb" id="optiongPtWdkmGAqBwARlb">&lt;Texto del tweet&gt; #ejemplo
+ : Label</option>
+<option value="shape|138.0|347.0|44.0|45.0|#hznnDkmGAqBwAQhI;_3tWdkmGAqBwARlY|#hznnDkmGAqBwAQhI;_3tWdkmGAqBwARlY|_3tWdkmGAqBwARlY" id="option_3tWdkmGAqBwARlY">Button : Button</option>
+<option value="shape|774.0|358.0|100.0|23.0|#hznnDkmGAqBwAQhI;wPtWdkmGAqBwARlf|#hznnDkmGAqBwAQhI;wPtWdkmGAqBwARlf|wPtWdkmGAqBwARlf" id="optionwPtWdkmGAqBwARlf">🔁15      ♥10k   : Label</option>
+<option value="shape|132.0|401.0|762.0|53.0|#hznnDkmGAqBwAQhI;50ZXDkmGAqBwAQqp|#hznnDkmGAqBwAQhI;50ZXDkmGAqBwAQqp|50ZXDkmGAqBwAQqp" id="option50ZXDkmGAqBwAQqp">Panel : Panel</option>
+<option value="shape|195.0|416.0|184.0|23.0|#hznnDkmGAqBwAQhI;F0ZXDkmGAqBwAQqr|#hznnDkmGAqBwAQhI;F0ZXDkmGAqBwAQqr|F0ZXDkmGAqBwAQqr" id="optionF0ZXDkmGAqBwAQqr">&lt;Texto del tweet&gt; #ejemplo
+ : Label</option>
+<option value="shape|138.0|405.0|44.0|45.0|#hznnDkmGAqBwAQhI;10ZXDkmGAqBwAQqv|#hznnDkmGAqBwAQhI;10ZXDkmGAqBwAQqv|10ZXDkmGAqBwAQqv" id="option10ZXDkmGAqBwAQqv">Button : Button</option>
+<option value="shape|771.0|416.0|100.0|23.0|#hznnDkmGAqBwAQhI;t0ZXDkmGAqBwAQqy|#hznnDkmGAqBwAQhI;t0ZXDkmGAqBwAQqy|t0ZXDkmGAqBwAQqy" id="optiont0ZXDkmGAqBwAQqy">🔁1.7k    ♥8k   : Label</option>
+<option value="shape|132.0|459.0|762.0|53.0|#hznnDkmGAqBwAQhI;Ua1XDkmGAqBwAQrT|#hznnDkmGAqBwAQhI;Ua1XDkmGAqBwAQrT|Ua1XDkmGAqBwAQrT" id="optionUa1XDkmGAqBwAQrT">Panel : Panel</option>
+<option value="shape|195.0|474.0|184.0|23.0|#hznnDkmGAqBwAQhI;Ua1XDkmGAqBwAQrV|#hznnDkmGAqBwAQhI;Ua1XDkmGAqBwAQrV|Ua1XDkmGAqBwAQrV" id="optionUa1XDkmGAqBwAQrV">&lt;Texto del tweet&gt; #ejemplo
+ : Label</option>
+<option value="shape|138.0|463.0|44.0|45.0|#hznnDkmGAqBwAQhI;Ma1XDkmGAqBwAQrZ|#hznnDkmGAqBwAQhI;Ma1XDkmGAqBwAQrZ|Ma1XDkmGAqBwAQrZ" id="optionMa1XDkmGAqBwAQrZ">Button : Button</option>
+<option value="shape|774.0|474.0|100.0|23.0|#hznnDkmGAqBwAQhI;ca1XDkmGAqBwAQrc|#hznnDkmGAqBwAQhI;ca1XDkmGAqBwAQrc|ca1XDkmGAqBwAQrc" id="optionca1XDkmGAqBwAQrc">🔁10      ♥5k   : Label</option>
+<option value="shape|532.0|657.0|20.0|67.0|#hznnDkmGAqBwAQhI;CYhhv0mGAqAAJyS3|#hznnDkmGAqBwAQhI;CYhhv0mGAqAAJyS3|CYhhv0mGAqAAJyS3" id="optionCYhhv0mGAqAAJyS3">· : Label</option>
+<option value="shape|503.0|657.0|20.0|66.0|#hznnDkmGAqBwAQhI;eYhhv0mGAqAAJyS8|#hznnDkmGAqBwAQhI;eYhhv0mGAqAAJyS8|eYhhv0mGAqAAJyS8" id="optioneYhhv0mGAqAAJyS8">· : Label</option>
+<option value="shape|473.0|657.0|20.0|67.0|#hznnDkmGAqBwAQhI;VYhhv0mGAqAAJyTB|#hznnDkmGAqBwAQhI;VYhhv0mGAqAAJyTB|VYhhv0mGAqAAJyTB" id="optionVYhhv0mGAqAAJyTB">· : Label</option>
+<option value="shape|132.0|517.0|762.0|53.0|#hznnDkmGAqBwAQhI;3oJhv0mGAqAAJyTO|#hznnDkmGAqBwAQhI;3oJhv0mGAqAAJyTO|3oJhv0mGAqAAJyTO" id="option3oJhv0mGAqAAJyTO">Panel : Panel</option>
+<option value="shape|195.0|532.0|184.0|23.0|#hznnDkmGAqBwAQhI;foJhv0mGAqAAJyTQ|#hznnDkmGAqBwAQhI;foJhv0mGAqAAJyTQ|foJhv0mGAqAAJyTQ" id="optionfoJhv0mGAqAAJyTQ">&lt;Texto del tweet&gt; #ejemplo
+ : Label</option>
+<option value="shape|138.0|521.0|44.0|45.0|#hznnDkmGAqBwAQhI;_oJhv0mGAqAAJyTU|#hznnDkmGAqBwAQhI;_oJhv0mGAqAAJyTU|_oJhv0mGAqAAJyTU" id="option_oJhv0mGAqAAJyTU">Button : Button</option>
+<option value="shape|775.0|532.0|100.0|23.0|#hznnDkmGAqBwAQhI;AYJhv0mGAqAAJyTX|#hznnDkmGAqBwAQhI;AYJhv0mGAqAAJyTX|AYJhv0mGAqAAJyTX" id="optionAYJhv0mGAqAAJyTX">🔁3k      ♥4.7k   : Label</option>
+<option value="shape|132.0|574.0|762.0|53.0|#hznnDkmGAqBwAQhI;dPphv0mGAqAAJyTo|#hznnDkmGAqBwAQhI;dPphv0mGAqAAJyTo|dPphv0mGAqAAJyTo" id="optiondPphv0mGAqAAJyTo">Panel : Panel</option>
+<option value="shape|195.0|589.0|184.0|23.0|#hznnDkmGAqBwAQhI;dPphv0mGAqAAJyTq|#hznnDkmGAqBwAQhI;dPphv0mGAqAAJyTq|dPphv0mGAqAAJyTq" id="optiondPphv0mGAqAAJyTq">&lt;Texto del tweet&gt; #ejemplo
+ : Label</option>
+<option value="shape|138.0|578.0|44.0|45.0|#hznnDkmGAqBwAQhI;DPphv0mGAqAAJyTu|#hznnDkmGAqBwAQhI;DPphv0mGAqAAJyTu|DPphv0mGAqAAJyTu" id="optionDPphv0mGAqAAJyTu">Button : Button</option>
+<option value="shape|774.0|589.0|100.0|23.0|#hznnDkmGAqBwAQhI;jPphv0mGAqAAJyTx|#hznnDkmGAqBwAQhI;jPphv0mGAqAAJyTx|jPphv0mGAqAAJyTx" id="optionjPphv0mGAqAAJyTx">🔁20      ♥3k   : Label</option>
+<option value="shape|132.0|632.0|762.0|53.0|#hznnDkmGAqBwAQhI;ce5hv0mGAqAAJyUC|#hznnDkmGAqBwAQhI;ce5hv0mGAqAAJyUC|ce5hv0mGAqAAJyUC" id="optionce5hv0mGAqAAJyUC">Panel : Panel</option>
+<option value="shape|195.0|647.0|184.0|23.0|#hznnDkmGAqBwAQhI;8e5hv0mGAqAAJyUE|#hznnDkmGAqBwAQhI;8e5hv0mGAqAAJyUE|8e5hv0mGAqAAJyUE" id="option8e5hv0mGAqAAJyUE">&lt;Texto del tweet&gt; #ejemplo
+ : Label</option>
+<option value="shape|138.0|636.0|44.0|45.0|#hznnDkmGAqBwAQhI;Ce5hv0mGAqAAJyUI|#hznnDkmGAqBwAQhI;Ce5hv0mGAqAAJyUI|Ce5hv0mGAqAAJyUI" id="optionCe5hv0mGAqAAJyUI">Button : Button</option>
+<option value="shape|774.0|647.0|101.0|23.0|#hznnDkmGAqBwAQhI;ie5hv0mGAqAAJyUL|#hznnDkmGAqBwAQhI;ie5hv0mGAqAAJyUL|ie5hv0mGAqAAJyUL" id="optionie5hv0mGAqAAJyUL">🔁189    ♥2.2k   : Label</option>
+<option value="shape|124.0|183.0|28.0|36.0|#hznnDkmGAqBwAQhI;K9VqdkmGAqBwARPg|#hznnDkmGAqBwAQhI;K9VqdkmGAqBwARPg|K9VqdkmGAqBwARPg" id="optionK9VqdkmGAqBwARPg"># : Label</option>
+<option value="shape|13.0|71.0|672.0|100.0|#hznnDkmGAqBwAQhI;Z2NvDkmGAqBwARJA|#hznnDkmGAqBwAQhI;Z2NvDkmGAqBwARJA|Z2NvDkmGAqBwARJA" id="optionZ2NvDkmGAqBwARJA">Image : Image</option>
+<option value="shape|736.0|106.0|100.0|30.0|#hznnDkmGAqBwAQhI;riVS2UmGAqBwAVuu|#hznnDkmGAqBwAQhI;riVS2UmGAqBwAVuu|riVS2UmGAqBwAVuu" id="optionriVS2UmGAqBwAVuu">Registrar : Button</option>
+<option value="shape|887.0|106.0|62.0|30.0|#hznnDkmGAqBwAQhI;Z_DS2UmGAqBwAV6k|#hznnDkmGAqBwAQhI;Z_DS2UmGAqBwAV6k|Z_DS2UmGAqBwAV6k" id="optionZ_DS2UmGAqBwAV6k">Log-in : Button</option>
+</select>							</td>
+						</tr>
+					</table>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" style="display: none;" id="selectShapehcXfDkmGAqBwARV1">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramhcXfDkmGAqBwARV1', this.value);hideLinkPopup();showSpotLight('diagramhcXfDkmGAqBwARV1', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#hcXfDkmGAqBwARV1;.GfDtkmGAqBwAQmw|#hcXfDkmGAqBwARV1;.GfDtkmGAqBwAQmw|.GfDtkmGAqBwAQmw" id="option.GfDtkmGAqBwAQmw">Web Browser : Browser</option>
+<option value="shape|4.0|69.0|1021.0|142.0|#hcXfDkmGAqBwARV1;qw8_DkmGAqBwARd.|#hcXfDkmGAqBwARV1;qw8_DkmGAqBwARd.|qw8_DkmGAqBwARd." id="optionqw8_DkmGAqBwARd.">Panel : Panel</option>
+<option value="shape|19.0|84.0|658.0|112.0|#hcXfDkmGAqBwARV1;sNj_DkmGAqBwARfY|#hcXfDkmGAqBwARV1;sNj_DkmGAqBwARfY|sNj_DkmGAqBwARfY" id="optionsNj_DkmGAqBwARfY">Image : Image</option>
+<option value="shape|728.0|124.0|100.0|30.0|#hcXfDkmGAqBwARV1;mLNS2UmGAqBwAVzT|#hcXfDkmGAqBwARV1;mLNS2UmGAqBwAVzT|mLNS2UmGAqBwAVzT" id="optionmLNS2UmGAqBwAVzT">Registrar : Button</option>
+<option value="shape|878.0|124.0|62.0|30.0|#hcXfDkmGAqBwARV1;V1zS2UmGAqBwAV.B|#hcXfDkmGAqBwARV1;V1zS2UmGAqBwAV.B|V1zS2UmGAqBwAV.B" id="optionV1zS2UmGAqBwAV.B">Log-in : Button</option>
+<option value="shape|3.0|211.0|1023.0|197.0|#hcXfDkmGAqBwARV1;XBy_DkmGAqBwAReM|#hcXfDkmGAqBwARV1;XBy_DkmGAqBwAReM|XBy_DkmGAqBwAReM" id="optionXBy_DkmGAqBwAReM">Panel : Panel</option>
+<option value="shape|211.0|227.0|113.0|30.0|#hcXfDkmGAqBwARV1;qpOAjkmGAqBwARgp|#hcXfDkmGAqBwARV1;qpOAjkmGAqBwARgp|qpOAjkmGAqBwARgp" id="optionqpOAjkmGAqBwARgp">@Nombreusuario : Label</option>
+<option value="shape|211.0|257.0|538.0|138.0|#hcXfDkmGAqBwARV1;6XeAjkmGAqBwARg6|#hcXfDkmGAqBwARV1;6XeAjkmGAqBwARg6|6XeAjkmGAqBwARg6" id="option6XeAjkmGAqBwARg6">Descripción: [...] : Label</option>
+<option value="shape|765.0|366.0|123.0|21.0|#hcXfDkmGAqBwARV1;_1JAjkmGAqBwARhK|#hcXfDkmGAqBwARV1;_1JAjkmGAqBwARhK|_1JAjkmGAqBwARhK" id="option_1JAjkmGAqBwARhK">Nº de seguidores: : Label</option>
+<option value="shape|765.0|324.0|103.0|20.0|#hcXfDkmGAqBwARV1;_45AjkmGAqBwARhb|#hcXfDkmGAqBwARV1;_45AjkmGAqBwARhb|_45AjkmGAqBwARhb" id="option_45AjkmGAqBwARhb">Nº de seguidos: : Label</option>
+<option value="shape|19.0|217.0|176.0|185.0|#hcXfDkmGAqBwARV1;azggjkmGAqBwARih|#hcXfDkmGAqBwARV1;azggjkmGAqBwARih|azggjkmGAqBwARih" id="optionazggjkmGAqBwARih">Panel : Panel</option>
+<option value="shape|31.0|227.0|152.0|164.0|#hcXfDkmGAqBwARV1;KJmAjkmGAqBwARgh|#hcXfDkmGAqBwARV1;KJmAjkmGAqBwARgh|KJmAjkmGAqBwARgh" id="optionKJmAjkmGAqBwARgh">Image : Image</option>
+<option value="shape|209.0|366.0|130.0|21.0|#hcXfDkmGAqBwARV1;ZGrh2UmGAqBwAXYZ|#hcXfDkmGAqBwARV1;ZGrh2UmGAqBwAXYZ|ZGrh2UmGAqBwAXYZ" id="optionZGrh2UmGAqBwAXYZ">Fecha de registro: : Label</option>
+<option value="shape|3.0|408.0|507.0|361.0|#hcXfDkmGAqBwARV1;38DB2UmGAqBwAXB3|#hcXfDkmGAqBwARV1;38DB2UmGAqBwAXB3|38DB2UmGAqBwAXB3" id="option38DB2UmGAqBwAXB3">Panel : Panel</option>
+<option value="shape|10.0|417.0|490.0|337.0|#hcXfDkmGAqBwARV1;v8DB2UmGAqBwAXB5|#hcXfDkmGAqBwARV1;v8DB2UmGAqBwAXB5|v8DB2UmGAqBwAXB5" id="optionv8DB2UmGAqBwAXB5">Panel : Panel</option>
+<option value="shape|22.0|454.0|471.0|290.0|#hcXfDkmGAqBwARV1;f8DB2UmGAqBwAXB7|#hcXfDkmGAqBwARV1;f8DB2UmGAqBwAXB7|f8DB2UmGAqBwAXB7" id="optionf8DB2UmGAqBwAXB7">List Group : List Group</option>
+<option value="shape|27.0|457.0|458.0|51.0|#hcXfDkmGAqBwARV1;gCDB2UmGAqBwAXCB|#hcXfDkmGAqBwARV1;gCDB2UmGAqBwAXCB|gCDB2UmGAqBwAXCB" id="optiongCDB2UmGAqBwAXCB">Panel : Panel</option>
+<option value="shape|427.0|469.0|47.0|15.0|#hcXfDkmGAqBwARV1;QCDB2UmGAqBwAXCD|#hcXfDkmGAqBwARV1;QCDB2UmGAqBwAXCD|QCDB2UmGAqBwAXCD" id="optionQCDB2UmGAqBwAXCD">♥ 2k   : Label</option>
+<option value="shape|90.0|471.0|184.0|22.0|#hcXfDkmGAqBwARV1;wCDB2UmGAqBwAXCH|#hcXfDkmGAqBwARV1;wCDB2UmGAqBwAXCH|wCDB2UmGAqBwAXCH" id="optionwCDB2UmGAqBwAXCH">&lt;Texto del tweet&gt;
+ : Label</option>
+<option value="shape|33.0|460.0|44.0|44.0|#hcXfDkmGAqBwARV1;ICDB2UmGAqBwAXCL|#hcXfDkmGAqBwARV1;ICDB2UmGAqBwAXCL|ICDB2UmGAqBwAXCL" id="optionICDB2UmGAqBwAXCL">Button : Button</option>
+<option value="shape|332.0|472.0|101.0|21.0|#hcXfDkmGAqBwARV1;ECDB2UmGAqBwAXCP|#hcXfDkmGAqBwARV1;ECDB2UmGAqBwAXCP|ECDB2UmGAqBwAXCP" id="optionECDB2UmGAqBwAXCP"> 🔁 1k    💬 20      : Label</option>
+<option value="shape|27.0|513.0|458.0|52.0|#hcXfDkmGAqBwARV1;syKxv0mGAqAAJyn.|#hcXfDkmGAqBwARV1;syKxv0mGAqAAJyn.|syKxv0mGAqAAJyn." id="optionsyKxv0mGAqAAJyn.">Panel : Panel</option>
+<option value="shape|427.0|526.0|55.0|22.0|#hcXfDkmGAqBwARV1;cyKxv0mGAqAAJyoA|#hcXfDkmGAqBwARV1;cyKxv0mGAqAAJyoA|cyKxv0mGAqAAJyoA" id="optioncyKxv0mGAqAAJyoA">♥ 2.2k   : Label</option>
+<option value="shape|91.0|527.0|184.0|22.0|#hcXfDkmGAqBwARV1;cyKxv0mGAqAAJyoE|#hcXfDkmGAqBwARV1;cyKxv0mGAqAAJyoE|cyKxv0mGAqAAJyoE" id="optioncyKxv0mGAqAAJyoE">&lt;Texto del tweet&gt;
+ : Label</option>
+<option value="shape|33.0|516.0|44.0|45.0|#hcXfDkmGAqBwARV1;8yKxv0mGAqAAJyoI|#hcXfDkmGAqBwARV1;8yKxv0mGAqAAJyoI|8yKxv0mGAqAAJyoI" id="option8yKxv0mGAqAAJyoI">Button : Button</option>
+<option value="shape|332.0|528.0|93.0|22.0|#hcXfDkmGAqBwARV1;8yKxv0mGAqAAJyoL|#hcXfDkmGAqBwARV1;8yKxv0mGAqAAJyoL|8yKxv0mGAqAAJyoL" id="option8yKxv0mGAqAAJyoL"> 🔁 1.1k 💬 20      : Label</option>
+<option value="shape|27.0|567.0|458.0|52.0|#hcXfDkmGAqBwARV1;Hoexv0mGAqAAJyov|#hcXfDkmGAqBwARV1;Hoexv0mGAqAAJyov|Hoexv0mGAqAAJyov" id="optionHoexv0mGAqAAJyov">Panel : Panel</option>
+<option value="shape|427.0|579.0|47.0|23.0|#hcXfDkmGAqBwARV1;Hoexv0mGAqAAJyox|#hcXfDkmGAqBwARV1;Hoexv0mGAqAAJyox|Hoexv0mGAqAAJyox" id="optionHoexv0mGAqAAJyox">♥ 1k   : Label</option>
+<option value="shape|89.0|581.0|184.0|22.0|#hcXfDkmGAqBwARV1;noexv0mGAqAAJyo1|#hcXfDkmGAqBwARV1;noexv0mGAqAAJyo1|noexv0mGAqAAJyo1" id="optionnoexv0mGAqAAJyo1">&lt;Texto del tweet&gt;
+ : Label</option>
+<option value="shape|32.0|570.0|44.0|45.0|#hcXfDkmGAqBwARV1;noexv0mGAqAAJyo5|#hcXfDkmGAqBwARV1;noexv0mGAqAAJyo5|noexv0mGAqAAJyo5" id="optionnoexv0mGAqAAJyo5">Button : Button</option>
+<option value="shape|332.0|582.0|132.0|22.0|#hcXfDkmGAqBwARV1;Xoexv0mGAqAAJyo8|#hcXfDkmGAqBwARV1;Xoexv0mGAqAAJyo8|Xoexv0mGAqAAJyo8" id="optionXoexv0mGAqAAJyo8"> 🔁 2k    💬 20      : Label</option>
+<option value="shape|27.0|623.0|458.0|52.0|#hcXfDkmGAqBwARV1;PEZxv0mGAqAAJypY|#hcXfDkmGAqBwARV1;PEZxv0mGAqAAJypY|PEZxv0mGAqAAJypY" id="optionPEZxv0mGAqAAJypY">Panel : Panel</option>
+<option value="shape|430.0|636.0|43.0|21.0|#hcXfDkmGAqBwARV1;vEZxv0mGAqAAJypa|#hcXfDkmGAqBwARV1;vEZxv0mGAqAAJypa|vEZxv0mGAqAAJypa" id="optionvEZxv0mGAqAAJypa">♥ 69   : Label</option>
+<option value="shape|90.0|637.0|184.0|22.0|#hcXfDkmGAqBwARV1;fEZxv0mGAqAAJype|#hcXfDkmGAqBwARV1;fEZxv0mGAqAAJype|fEZxv0mGAqAAJype" id="optionfEZxv0mGAqAAJype">&lt;Texto del tweet&gt;
+ : Label</option>
+<option value="shape|33.0|626.0|44.0|45.0|#hcXfDkmGAqBwARV1;fEZxv0mGAqAAJypi|#hcXfDkmGAqBwARV1;fEZxv0mGAqAAJypi|fEZxv0mGAqAAJypi" id="optionfEZxv0mGAqAAJypi">Button : Button</option>
+<option value="shape|332.0|638.0|150.0|22.0|#hcXfDkmGAqBwARV1;_EZxv0mGAqAAJypl|#hcXfDkmGAqBwARV1;_EZxv0mGAqAAJypl|_EZxv0mGAqAAJypl" id="option_EZxv0mGAqAAJypl"> 🔁 100  💬 20      : Label</option>
+<option value="shape|276.0|654.0|20.0|67.0|#hcXfDkmGAqBwARV1;ootZv0mGAqAAJy6a|#hcXfDkmGAqBwARV1;ootZv0mGAqAAJy6a|ootZv0mGAqAAJy6a" id="optionootZv0mGAqAAJy6a">· : Label</option>
+<option value="shape|248.0|654.0|20.0|66.0|#hcXfDkmGAqBwARV1;ootZv0mGAqAAJy6f|#hcXfDkmGAqBwARV1;ootZv0mGAqAAJy6f|ootZv0mGAqAAJy6f" id="optionootZv0mGAqAAJy6f">· : Label</option>
+<option value="shape|218.0|654.0|20.0|67.0|#hcXfDkmGAqBwARV1;yotZv0mGAqAAJy6k|#hcXfDkmGAqBwARV1;yotZv0mGAqAAJy6k|yotZv0mGAqAAJy6k" id="optionyotZv0mGAqAAJy6k">· : Label</option>
+<option value="shape|210.0|417.0|95.0|51.0|#hcXfDkmGAqBwARV1;RCDB2UmGAqBwAXDA|#hcXfDkmGAqBwARV1;RCDB2UmGAqBwAXDA|RCDB2UmGAqBwAXDA" id="optionRCDB2UmGAqBwAXDA">Tweets : Label</option>
+<option value="shape|510.0|408.0|515.0|361.0|#hcXfDkmGAqBwARV1;0mLB2UmGAqBwAXGf|#hcXfDkmGAqBwARV1;0mLB2UmGAqBwAXGf|0mLB2UmGAqBwAXGf" id="option0mLB2UmGAqBwAXGf">Panel : Panel</option>
+<option value="shape|520.0|418.0|491.0|338.0|#hcXfDkmGAqBwARV1;0mLB2UmGAqBwAXGh|#hcXfDkmGAqBwARV1;0mLB2UmGAqBwAXGh|0mLB2UmGAqBwAXGh" id="option0mLB2UmGAqBwAXGh">Panel : Panel</option>
+<option value="shape|530.0|455.0|472.0|290.0|#hcXfDkmGAqBwARV1;MmLB2UmGAqBwAXGj|#hcXfDkmGAqBwARV1;MmLB2UmGAqBwAXGj|MmLB2UmGAqBwAXGj" id="optionMmLB2UmGAqBwAXGj">List Group : List Group</option>
+<option value="shape|728.0|653.0|20.0|67.0|#hcXfDkmGAqBwARV1;Ee9Zv0mGAqAAJy67|#hcXfDkmGAqBwARV1;Ee9Zv0mGAqAAJy67|Ee9Zv0mGAqAAJy67" id="optionEe9Zv0mGAqAAJy67">· : Label</option>
+<option value="shape|786.0|653.0|20.0|67.0|#hcXfDkmGAqBwARV1;_u9Zv0mGAqAAJy6x|#hcXfDkmGAqBwARV1;_u9Zv0mGAqAAJy6x|_u9Zv0mGAqAAJy6x" id="option_u9Zv0mGAqAAJy6x">· : Label</option>
+<option value="shape|758.0|653.0|20.0|66.0|#hcXfDkmGAqBwARV1;Ie9Zv0mGAqAAJy62|#hcXfDkmGAqBwARV1;Ie9Zv0mGAqAAJy62|Ie9Zv0mGAqAAJy62" id="optionIe9Zv0mGAqAAJy62">· : Label</option>
+<option value="shape|536.0|459.0|458.0|52.0|#hcXfDkmGAqBwARV1;INRJv0mGAqAAJyr_|#hcXfDkmGAqBwARV1;INRJv0mGAqAAJyr_|INRJv0mGAqAAJyr_" id="optionINRJv0mGAqAAJyr_">Panel : Panel</option>
+<option value="shape|542.0|462.0|44.0|45.0|#hcXfDkmGAqBwARV1;INRJv0mGAqAAJysJ|#hcXfDkmGAqBwARV1;INRJv0mGAqAAJysJ|INRJv0mGAqAAJysJ" id="optionINRJv0mGAqAAJysJ">Button : Button</option>
+<option value="shape|936.0|471.0|47.0|15.0|#hcXfDkmGAqBwARV1;INRJv0mGAqAAJysB|#hcXfDkmGAqBwARV1;INRJv0mGAqAAJysB|INRJv0mGAqAAJysB" id="optionINRJv0mGAqAAJysB">♥ 2   : Label</option>
+<option value="shape|599.0|473.0|184.0|22.0|#hcXfDkmGAqBwARV1;INRJv0mGAqAAJysF|#hcXfDkmGAqBwARV1;INRJv0mGAqAAJysF|INRJv0mGAqAAJysF" id="optionINRJv0mGAqAAJysF">&lt;Texto del tweet&gt;
+ : Label</option>
+<option value="shape|844.0|474.0|95.0|22.0|#hcXfDkmGAqBwARV1;INRJv0mGAqAAJysM|#hcXfDkmGAqBwARV1;INRJv0mGAqAAJysM|INRJv0mGAqAAJysM" id="optionINRJv0mGAqAAJysM"> 🔁 10   💬 20      : Label</option>
+<option value="shape|536.0|516.0|458.0|52.0|#hcXfDkmGAqBwARV1;VdpJv0mGAqAAJysm|#hcXfDkmGAqBwARV1;VdpJv0mGAqAAJysm|VdpJv0mGAqAAJysm" id="optionVdpJv0mGAqAAJysm">Panel : Panel</option>
+<option value="shape|542.0|518.0|44.0|45.0|#hcXfDkmGAqBwARV1;NdpJv0mGAqAAJysw|#hcXfDkmGAqBwARV1;NdpJv0mGAqAAJysw|NdpJv0mGAqAAJysw" id="optionNdpJv0mGAqAAJysw">Button : Button</option>
+<option value="shape|935.0|528.0|58.0|21.0|#hcXfDkmGAqBwARV1;1dpJv0mGAqAAJyso|#hcXfDkmGAqBwARV1;1dpJv0mGAqAAJyso|1dpJv0mGAqAAJyso" id="option1dpJv0mGAqAAJyso">♥ 1.2k   : Label</option>
+<option value="shape|599.0|529.0|184.0|22.0|#hcXfDkmGAqBwARV1;NdpJv0mGAqAAJyss|#hcXfDkmGAqBwARV1;NdpJv0mGAqAAJyss|NdpJv0mGAqAAJyss" id="optionNdpJv0mGAqAAJyss">&lt;Texto del tweet&gt;
+ : Label</option>
+<option value="shape|843.0|531.0|90.0|22.0|#hcXfDkmGAqBwARV1;NdpJv0mGAqAAJysz|#hcXfDkmGAqBwARV1;NdpJv0mGAqAAJysz|NdpJv0mGAqAAJysz" id="optionNdpJv0mGAqAAJysz"> 🔁 1.8k 💬 20      : Label</option>
+<option value="shape|536.0|573.0|458.0|52.0|#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytF|#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytF|0mFJv0mGAqAAJytF" id="option0mFJv0mGAqAAJytF">Panel : Panel</option>
+<option value="shape|542.0|577.0|44.0|45.0|#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytP|#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytP|0mFJv0mGAqAAJytP" id="option0mFJv0mGAqAAJytP">Button : Button</option>
+<option value="shape|935.0|586.0|48.0|21.0|#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytH|#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytH|0mFJv0mGAqAAJytH" id="option0mFJv0mGAqAAJytH">♥ 1.8k   : Label</option>
+<option value="shape|599.0|587.0|184.0|22.0|#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytL|#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytL|0mFJv0mGAqAAJytL" id="option0mFJv0mGAqAAJytL">&lt;Texto del tweet&gt;
+ : Label</option>
+<option value="shape|844.0|588.0|87.0|22.0|#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytS|#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytS|0mFJv0mGAqAAJytS" id="option0mFJv0mGAqAAJytS"> 🔁 729  💬 20      : Label</option>
+<option value="shape|536.0|631.0|458.0|52.0|#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyty|#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyty|f89Jv0mGAqAAJyty" id="optionf89Jv0mGAqAAJyty">Panel : Panel</option>
+<option value="shape|542.0|634.0|44.0|45.0|#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyt8|#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyt8|f89Jv0mGAqAAJyt8" id="optionf89Jv0mGAqAAJyt8">Button : Button</option>
+<option value="shape|936.0|643.0|45.0|21.0|#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyt0|#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyt0|f89Jv0mGAqAAJyt0" id="optionf89Jv0mGAqAAJyt0">♥ 311   : Label</option>
+<option value="shape|599.0|645.0|184.0|22.0|#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyt4|#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyt4|f89Jv0mGAqAAJyt4" id="optionf89Jv0mGAqAAJyt4">&lt;Texto del tweet&gt;
+ : Label</option>
+<option value="shape|844.0|646.0|86.0|22.0|#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyt_|#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyt_|f89Jv0mGAqAAJyt_" id="optionf89Jv0mGAqAAJyt_"> 🔁 10k  💬 20      : Label</option>
+<option value="shape|710.0|418.0|112.0|51.0|#hcXfDkmGAqBwARV1;TmLB2UmGAqBwAXHo|#hcXfDkmGAqBwARV1;TmLB2UmGAqBwAXHo|TmLB2UmGAqBwAXHo" id="optionTmLB2UmGAqBwAXHo">Retweets : Label</option>
+</select>							</td>
+						</tr>
+					</table>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" style="display: none;" id="selectShape5IgtUsmGAqBwARNE">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagram5IgtUsmGAqBwARNE', this.value);hideLinkPopup();showSpotLight('diagram5IgtUsmGAqBwARNE', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#5IgtUsmGAqBwARNE;.GfDtkmGAqBwAQmw|#5IgtUsmGAqBwARNE;.GfDtkmGAqBwAQmw|.GfDtkmGAqBwAQmw" id="option.GfDtkmGAqBwAQmw">Web Browser : Browser</option>
+<option value="shape|47.0|83.0|934.0|236.0|#5IgtUsmGAqBwARNE;M2LtUsmGAqBwARss|#5IgtUsmGAqBwARNE;M2LtUsmGAqBwARss|M2LtUsmGAqBwARss" id="optionM2LtUsmGAqBwARss">Panel : Panel</option>
+<option value="shape|791.0|273.0|145.0|32.0|#5IgtUsmGAqBwARNE;LWLtUsmGAqBwARsn|#5IgtUsmGAqBwARNE;LWLtUsmGAqBwARsn|LWLtUsmGAqBwARsn" id="optionLWLtUsmGAqBwARsn">🔁 3k                    💬 20  : Label</option>
+<option value="shape|841.0|273.0|41.0|20.0|#5IgtUsmGAqBwARNE;WWLtUsmGAqBwARsi|#5IgtUsmGAqBwARNE;WWLtUsmGAqBwARsi|WWLtUsmGAqBwARsi" id="optionWWLtUsmGAqBwARsi">♥ 20k   : Label</option>
+<option value="shape|165.0|128.0|752.0|115.0|#5IgtUsmGAqBwARNE;q2LtUsmGAqBwARs1|#5IgtUsmGAqBwARNE;q2LtUsmGAqBwARs1|q2LtUsmGAqBwARs1" id="optionq2LtUsmGAqBwARs1">Text Field : Text Field</option>
+<option value="shape|175.0|137.0|135.0|22.0|#5IgtUsmGAqBwARNE;a2LtUsmGAqBwARs3|#5IgtUsmGAqBwARNE;a2LtUsmGAqBwARs3|a2LtUsmGAqBwARs3" id="optiona2LtUsmGAqBwARs3">*El texto del tweet* : Label</option>
+<option value="shape|165.0|96.0|115.0|22.0|#5IgtUsmGAqBwARNE;S2LtUsmGAqBwARsx|#5IgtUsmGAqBwARNE;S2LtUsmGAqBwARsx|S2LtUsmGAqBwARsx" id="optionS2LtUsmGAqBwARsx">@UsuarioEjemplo : Label</option>
+<option value="shape|62.0|96.0|85.0|87.0|#5IgtUsmGAqBwARNE;s2LtUsmGAqBwARsu|#5IgtUsmGAqBwARNE;s2LtUsmGAqBwARsu|s2LtUsmGAqBwARsu" id="options2LtUsmGAqBwARsu">Image : Image</option>
+<option value="shape|156.0|308.0|22.0|402.0|#5IgtUsmGAqBwARNE;5uLtUsmGAqBwARtC|#5IgtUsmGAqBwARNE;5uLtUsmGAqBwARtC|5uLtUsmGAqBwARtC" id="option5uLtUsmGAqBwARtC">Line : Line</option>
+<option value="shape|157.0|401.0|144.0|20.0|#5IgtUsmGAqBwARNE;UeLtUsmGAqBwARtI|#5IgtUsmGAqBwARNE;UeLtUsmGAqBwARtI|UeLtUsmGAqBwARtI" id="optionUeLtUsmGAqBwARtI">Line : Line</option>
+<option value="shape|157.0|516.0|140.0|21.0|#5IgtUsmGAqBwARNE;VeLtUsmGAqBwARtO|#5IgtUsmGAqBwARNE;VeLtUsmGAqBwARtO|VeLtUsmGAqBwARtO" id="optionVeLtUsmGAqBwARtO">Line : Line</option>
+<option value="shape|288.0|361.0|692.0|110.0|#5IgtUsmGAqBwARNE;e.LtUsmGAqBwARtZ|#5IgtUsmGAqBwARNE;e.LtUsmGAqBwARtZ|e.LtUsmGAqBwARtZ" id="optione.LtUsmGAqBwARtZ">Panel : Panel</option>
+<option value="shape|890.0|404.0|41.0|20.0|#5IgtUsmGAqBwARNE;4.LtUsmGAqBwARtU|#5IgtUsmGAqBwARNE;4.LtUsmGAqBwARtU|4.LtUsmGAqBwARtU" id="option4.LtUsmGAqBwARtU">♥ 20k   : Label</option>
+<option value="shape|360.0|386.0|498.0|57.0|#5IgtUsmGAqBwARNE;p.LtUsmGAqBwARth|#5IgtUsmGAqBwARNE;p.LtUsmGAqBwARth|p.LtUsmGAqBwARth" id="optionp.LtUsmGAqBwARth">Text Field : Text Field</option>
+<option value="shape|295.0|371.0|50.0|50.0|#5IgtUsmGAqBwARNE;R.LtUsmGAqBwARte|#5IgtUsmGAqBwARNE;R.LtUsmGAqBwARte|R.LtUsmGAqBwARte" id="optionR.LtUsmGAqBwARte">Image : Image</option>
+<option value="shape|288.0|478.0|692.0|110.0|#5IgtUsmGAqBwARNE;yhLtUsmGAqBwARtt|#5IgtUsmGAqBwARNE;yhLtUsmGAqBwARtt|yhLtUsmGAqBwARtt" id="optionyhLtUsmGAqBwARtt">Panel : Panel</option>
+<option value="shape|360.0|501.0|498.0|58.0|#5IgtUsmGAqBwARNE;AhLtUsmGAqBwARtp|#5IgtUsmGAqBwARNE;AhLtUsmGAqBwARtp|AhLtUsmGAqBwARtp" id="optionAhLtUsmGAqBwARtp">Text Field : Text Field</option>
+<option value="shape|295.0|488.0|50.0|50.0|#5IgtUsmGAqBwARNE;OhLtUsmGAqBwARt2|#5IgtUsmGAqBwARNE;OhLtUsmGAqBwARt2|OhLtUsmGAqBwARt2" id="optionOhLtUsmGAqBwARt2">Image : Image</option>
+<option value="shape|890.0|519.0|41.0|20.0|#5IgtUsmGAqBwARNE;qhLtUsmGAqBwARtv|#5IgtUsmGAqBwARNE;qhLtUsmGAqBwARtv|qhLtUsmGAqBwARtv" id="optionqhLtUsmGAqBwARtv">♥ 20k   : Label</option>
+</select>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<span data-value="TafDtkmGAqBwAQmu" style="display: none;" id="defaultState">
+		</span>
+		<span data-value="Web Wireframe1 - Initial" style="display: none;" id="defaultPageTitleText">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagramTafDtkmGAqBwAQmu" src="../images/Web_Wireframe1_Initial.png" usemap="#diagramTafDtkmGAqBwAQmu_map" class="Image" width="1030" height="774"/>
+					<map name="diagramTafDtkmGAqBwAQmu_map">
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="651, 591, 835, 614" coords2="651, 591, 835, 614" shape="rect" alt="@nombreusuario
+:Label" id="areadiagramTafDtkmGAqBwAQmu_map_xeYBv0mGAqAAJyB4" href="#TafDtkmGAqBwAQmu;xeYBv0mGAqAAJyB4" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="594, 580, 638, 625" coords2="594, 580, 638, 625" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_BeYBv0mGAqAAJyB1" href="#TafDtkmGAqBwAQmu;BeYBv0mGAqAAJyB1" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="588, 576, 977, 629" coords2="588, 576, 977, 629" shape="rect" alt="Panel:Panel" id="areadiagramTafDtkmGAqBwAQmu_map_eeYBv0mGAqAAJyBz" href="#TafDtkmGAqBwAQmu;eeYBv0mGAqAAJyBz" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="651, 534, 835, 557" coords2="651, 534, 835, 557" shape="rect" alt="@nombreusuario
+:Label" id="areadiagramTafDtkmGAqBwAQmu_map_XJQBv0mGAqAAJyBV" href="#TafDtkmGAqBwAQmu;XJQBv0mGAqAAJyBV" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="594, 523, 638, 568" coords2="594, 523, 638, 568" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_HJQBv0mGAqAAJyBS" href="#TafDtkmGAqBwAQmu;HJQBv0mGAqAAJyBS" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="588, 519, 977, 572" coords2="588, 519, 977, 572" shape="rect" alt="Panel:Panel" id="areadiagramTafDtkmGAqBwAQmu_map_7JQBv0mGAqAAJyBQ" href="#TafDtkmGAqBwAQmu;7JQBv0mGAqAAJyBQ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="651, 477, 835, 500" coords2="651, 477, 835, 500" shape="rect" alt="@nombreusuario
+:Label" id="areadiagramTafDtkmGAqBwAQmu_map_naABv0mGAqAAJyBA" href="#TafDtkmGAqBwAQmu;naABv0mGAqAAJyBA" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="594, 466, 638, 511" coords2="594, 466, 638, 511" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_baABv0mGAqAAJyA9" href="#TafDtkmGAqBwAQmu;baABv0mGAqAAJyA9" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="588, 462, 977, 515" coords2="588, 462, 977, 515" shape="rect" alt="Panel:Panel" id="areadiagramTafDtkmGAqBwAQmu_map_raABv0mGAqAAJyA7" href="#TafDtkmGAqBwAQmu;raABv0mGAqAAJyA7" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="651, 419, 835, 442" coords2="651, 419, 835, 442" shape="rect" alt="@nombreusuario
+:Label" id="areadiagramTafDtkmGAqBwAQmu_map_Zyb2dkmGAqBwARo6" href="#TafDtkmGAqBwAQmu;Zyb2dkmGAqBwARo6" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="594, 408, 638, 453" coords2="594, 408, 638, 453" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_lyb2dkmGAqBwARo." href="#TafDtkmGAqBwAQmu;lyb2dkmGAqBwARo." onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="588, 404, 977, 457" coords2="588, 404, 977, 457" shape="rect" alt="Panel:Panel" id="areadiagramTafDtkmGAqBwAQmu_map_Zyb2dkmGAqBwARo4" href="#TafDtkmGAqBwAQmu;Zyb2dkmGAqBwARo4" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="651, 363, 835, 386" coords2="651, 363, 835, 386" shape="rect" alt="@nombreusuario
+:Label" id="areadiagramTafDtkmGAqBwAQmu_map_F_L2dkmGAqBwARod" href="#TafDtkmGAqBwAQmu;F_L2dkmGAqBwARod" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="594, 352, 638, 397" coords2="594, 352, 638, 397" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_1_L2dkmGAqBwARoh" href="#TafDtkmGAqBwAQmu;1_L2dkmGAqBwARoh" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="588, 348, 977, 401" coords2="588, 348, 977, 401" shape="rect" alt="Panel:Panel" id="areadiagramTafDtkmGAqBwAQmu_map_5_L2dkmGAqBwARob" href="#TafDtkmGAqBwAQmu;5_L2dkmGAqBwARob" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="651, 308, 835, 331" coords2="651, 308, 835, 331" shape="rect" alt="@nombreusuario
+:Label" id="areadiagramTafDtkmGAqBwAQmu_map_6px2dkmGAqBwARns" href="#TafDtkmGAqBwAQmu;6px2dkmGAqBwARns" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="594, 297, 638, 342" coords2="594, 297, 638, 342" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_Kpx2dkmGAqBwARnp" href="#TafDtkmGAqBwAQmu;Kpx2dkmGAqBwARnp" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="588, 293, 977, 346" coords2="588, 293, 977, 346" shape="rect" alt="Panel:Panel" id="areadiagramTafDtkmGAqBwAQmu_map_ypx2dkmGAqBwARnn" href="#TafDtkmGAqBwAQmu;ypx2dkmGAqBwARnn" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="802, 592, 822, 660" coords2="802, 592, 822, 660" shape="rect" alt="·:Label" id="areadiagramTafDtkmGAqBwAQmu_map_0yn.v0mGAqAAJyAD" href="#TafDtkmGAqBwAQmu;0yn.v0mGAqAAJyAD" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="774, 592, 794, 659" coords2="774, 592, 794, 659" shape="rect" alt="·:Label" id="areadiagramTafDtkmGAqBwAQmu_map__Sn.v0mGAqAAJx_." href="#TafDtkmGAqBwAQmu;_Sn.v0mGAqAAJx_." onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="745, 592, 765, 660" coords2="745, 592, 765, 660" shape="rect" alt="·:Label" id="areadiagramTafDtkmGAqBwAQmu_map_DSn.v0mGAqAAJx_5" href="#TafDtkmGAqBwAQmu;DSn.v0mGAqAAJx_5" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="580, 289, 985, 672" coords2="580, 289, 985, 672" shape="rect" alt="List Group:List Group" id="areadiagramTafDtkmGAqBwAQmu_map_WAIadkmGAqBwARRS" href="#TafDtkmGAqBwAQmu;WAIadkmGAqBwARRS" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="580, 247, 611, 293" coords2="580, 247, 611, 293" shape="rect" alt="@:Label" id="areadiagramTafDtkmGAqBwAQmu_map_GAIadkmGAqBwARRO" href="#TafDtkmGAqBwAQmu;GAIadkmGAqBwARRO" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="680, 258, 887, 281" coords2="680, 258, 887, 281" shape="rect" alt="Listado de usuarios registrados
+:Label" id="areadiagramTafDtkmGAqBwAQmu_map_MPEbtkmGAqBwAQtV" href="#TafDtkmGAqBwAQmu;MPEbtkmGAqBwAQtV" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="571, 247, 995, 689" coords2="571, 247, 995, 689" shape="rect" alt="Panel:Panel" id="areadiagramTafDtkmGAqBwAQmu_map_6AIadkmGAqBwARRM" href="#TafDtkmGAqBwAQmu;6AIadkmGAqBwARRM" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="55, 563, 431, 608" coords2="55, 563, 431, 608" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_2mqBv0mGAqAAJyDu" href="#TafDtkmGAqBwAQmu;2mqBv0mGAqAAJyDu" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="55, 518, 431, 563" coords2="55, 518, 431, 563" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_rWyBv0mGAqAAJyDe" href="#TafDtkmGAqBwAQmu;rWyBv0mGAqAAJyDe" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="55, 472, 431, 517" coords2="55, 472, 431, 517" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_cNmPDkmGAqBwAQ0p" href="#TafDtkmGAqBwAQmu;cNmPDkmGAqBwAQ0p" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="263, 582, 283, 650" coords2="263, 582, 283, 650" shape="rect" alt="·:Label" id="areadiagramTafDtkmGAqBwAQmu_map_u5aPDkmGAqBwAQ0S" href="#TafDtkmGAqBwAQmu;u5aPDkmGAqBwAQ0S" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="235, 582, 255, 649" coords2="235, 582, 255, 649" shape="rect" alt="·:Label" id="areadiagramTafDtkmGAqBwAQmu_map_KZqPDkmGAqBwAQ0H" href="#TafDtkmGAqBwAQmu;KZqPDkmGAqBwAQ0H" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="206, 582, 226, 650" coords2="206, 582, 226, 650" shape="rect" alt="·:Label" id="areadiagramTafDtkmGAqBwAQmu_map_PayPDkmGAqBwAQz8" href="#TafDtkmGAqBwAQmu;PayPDkmGAqBwAQz8" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="55, 427, 431, 472" coords2="55, 427, 431, 472" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_oKMPDkmGAqBwAQzO" href="#TafDtkmGAqBwAQmu;oKMPDkmGAqBwAQzO" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="55, 381, 431, 426" coords2="55, 381, 431, 426" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_Ck0PDkmGAqBwAQzC" href="#TafDtkmGAqBwAQmu;Ck0PDkmGAqBwAQzC" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="55, 336, 431, 381" coords2="55, 336, 431, 381" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_SkUPDkmGAqBwAQyy" href="#TafDtkmGAqBwAQmu;SkUPDkmGAqBwAQyy" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="55, 289, 431, 334" coords2="55, 289, 431, 334" shape="rect" alt="Button:Button" id="areadiagramTafDtkmGAqBwAQmu_map_42IPDkmGAqBwAQyb" href="#TafDtkmGAqBwAQmu;42IPDkmGAqBwAQyb" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="42, 289, 447, 672" coords2="42, 289, 447, 672" shape="rect" alt="List Group:List Group" id="areadiagramTafDtkmGAqBwAQmu_map_3K0LtkmGAqBwAQrv" href="#TafDtkmGAqBwAQmu;3K0LtkmGAqBwAQrv" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="42, 247, 74, 284" coords2="42, 247, 74, 284" shape="rect" alt="#:Label" id="areadiagramTafDtkmGAqBwAQmu_map_K9VqdkmGAqBwARPg" href="#TafDtkmGAqBwAQmu;K9VqdkmGAqBwARPg" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="207, 258, 284, 288" coords2="207, 258, 284, 288" shape="rect" alt="Tendencias:Label" id="areadiagramTafDtkmGAqBwAQmu_map_WbFrtkmGAqBwAQsc" href="#TafDtkmGAqBwAQmu;WbFrtkmGAqBwAQsc" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="33, 247, 457, 689" coords2="33, 247, 457, 689" shape="rect" alt="Panel:Panel" id="areadiagramTafDtkmGAqBwAQmu_map_8TlqdkmGAqBwARPR" href="#TafDtkmGAqBwAQmu;8TlqdkmGAqBwARPR" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="17, 85, 689, 185" coords2="17, 85, 689, 185" shape="rect" alt="Image:Image" id="areadiagramTafDtkmGAqBwAQmu_map_q5ObtkmGAqBwAQub" href="#TafDtkmGAqBwAQmu;q5ObtkmGAqBwAQub" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="888, 119, 951, 149" coords2="888, 119, 951, 149" shape="rect" alt="Log-in:Button" id="areadiagramTafDtkmGAqBwAQmu_map_Y2.ztkmGAqBwAQpU" href="#TafDtkmGAqBwAQmu;Y2.ztkmGAqBwAQpU" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="733, 119, 834, 149" coords2="733, 119, 834, 149" shape="rect" alt="Registrar:Button" id="areadiagramTafDtkmGAqBwAQmu_map_C7eztkmGAqBwAQpN" href="#TafDtkmGAqBwAQmu;C7eztkmGAqBwAQpN" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramTafDtkmGAqBwAQmu" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramTafDtkmGAqBwAQmu_map_.GfDtkmGAqBwAQmw" href="#TafDtkmGAqBwAQmu;.GfDtkmGAqBwAQmw" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+					<img id="diagramXmTbtkmGAqBwAQwI" src="../images/Web_Wireframe1_State2.png" usemap="#diagramXmTbtkmGAqBwAQwI_map" class="Image" width="1030" height="774" style="display: none;"/>
+					<map name="diagramXmTbtkmGAqBwAQwI_map">
+<area imageId="diagramXmTbtkmGAqBwAQwI" coords="438, 605, 590, 635" coords2="438, 605, 590, 635" shape="rect" alt="Loggeo mediante google:Button" id="areadiagramXmTbtkmGAqBwAQwI_map_yzWXtkmGAqBwAQ3a" href="#XmTbtkmGAqBwAQwI;yzWXtkmGAqBwAQ3a" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramXmTbtkmGAqBwAQwI" coords="500, 567, 529, 595" coords2="500, 567, 529, 595" shape="rect" alt="Image:Image" id="areadiagramXmTbtkmGAqBwAQwI_map_rX0XtkmGAqBwAQ2d" href="#XmTbtkmGAqBwAQwI;rX0XtkmGAqBwAQ2d" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramXmTbtkmGAqBwAQwI" coords="590, 482, 690, 512" coords2="590, 482, 690, 512" shape="rect" alt="Loggear:Button" id="areadiagramXmTbtkmGAqBwAQwI_map_TxQXtkmGAqBwAQ15" href="#XmTbtkmGAqBwAQwI;TxQXtkmGAqBwAQ15" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramXmTbtkmGAqBwAQwI" coords="338, 482, 438, 512" coords2="338, 482, 438, 512" shape="rect" alt="Cancelar:Button" id="areadiagramXmTbtkmGAqBwAQwI_map_89_ntkmGAqBwAQ1w" href="#XmTbtkmGAqBwAQwI;89_ntkmGAqBwAQ1w" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramXmTbtkmGAqBwAQwI" coords="311, 144, 718, 172" coords2="311, 144, 718, 172" shape="rect" alt="Introduzca su correo y contraseña:Label" id="areadiagramXmTbtkmGAqBwAQwI_map_u6.ntkmGAqBwAQ0h" href="#XmTbtkmGAqBwAQwI;u6.ntkmGAqBwAQ0h" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramXmTbtkmGAqBwAQwI" coords="270, 332, 759, 362" coords2="270, 332, 759, 362" shape="rect" alt="Contraseña:Text Field" id="areadiagramXmTbtkmGAqBwAQwI_map_EImntkmGAqBwAQ0Q" href="#XmTbtkmGAqBwAQwI;EImntkmGAqBwAQ0Q" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramXmTbtkmGAqBwAQwI" coords="270, 271, 759, 301" coords2="270, 271, 759, 301" shape="rect" alt="Email/Correo Electrónico:Text Field" id="areadiagramXmTbtkmGAqBwAQwI_map_RwGntkmGAqBwAQ0G" href="#XmTbtkmGAqBwAQwI;RwGntkmGAqBwAQ0G" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramXmTbtkmGAqBwAQwI" coords="238, 236, 799, 429" coords2="238, 236, 799, 429" shape="rect" alt="Panel:Panel" id="areadiagramXmTbtkmGAqBwAQwI_map_03ngdkmGAqBwARKv" href="#XmTbtkmGAqBwAQwI;03ngdkmGAqBwARKv" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramXmTbtkmGAqBwAQwI" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramXmTbtkmGAqBwAQwI_map_.GfDtkmGAqBwAQmw" href="#XmTbtkmGAqBwAQwI;.GfDtkmGAqBwAQmw" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+					<img id="diagramKvKmaUmGAqBwATCy" src="../images/Web_Wireframe1_State22.png" usemap="#diagramKvKmaUmGAqBwATCy_map" class="Image" width="1030" height="774" style="display: none;"/>
+					<map name="diagramKvKmaUmGAqBwATCy_map">
+<area imageId="diagramKvKmaUmGAqBwATCy" coords="816, 312, 1001, 382" coords2="816, 312, 1001, 382" shape="rect" alt="La contraseña no tiene el formato correcto: (La contraseña debe contener entre 8 y 14 caracteres, una letra mayúscula, un
+carácter especial):Label" id="areadiagramKvKmaUmGAqBwATCy_map_ndlmaUmGAqBwATIn" href="#KvKmaUmGAqBwATCy;ndlmaUmGAqBwATIn" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramKvKmaUmGAqBwATCy" coords="437, 605, 589, 635" coords2="437, 605, 589, 635" shape="rect" alt="Loggeo mediante google:Button" id="areadiagramKvKmaUmGAqBwATCy_map_yzWXtkmGAqBwAQ3a" href="#KvKmaUmGAqBwATCy;yzWXtkmGAqBwAQ3a" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramKvKmaUmGAqBwATCy" coords="500, 567, 529, 595" coords2="500, 567, 529, 595" shape="rect" alt="Image:Image" id="areadiagramKvKmaUmGAqBwATCy_map_rX0XtkmGAqBwAQ2d" href="#KvKmaUmGAqBwATCy;rX0XtkmGAqBwAQ2d" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramKvKmaUmGAqBwATCy" coords="590, 482, 690, 512" coords2="590, 482, 690, 512" shape="rect" alt="Loggear:Button" id="areadiagramKvKmaUmGAqBwATCy_map_TxQXtkmGAqBwAQ15" href="#KvKmaUmGAqBwATCy;TxQXtkmGAqBwAQ15" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramKvKmaUmGAqBwATCy" coords="338, 482, 438, 512" coords2="338, 482, 438, 512" shape="rect" alt="Cancelar:Button" id="areadiagramKvKmaUmGAqBwATCy_map_89_ntkmGAqBwAQ1w" href="#KvKmaUmGAqBwATCy;89_ntkmGAqBwAQ1w" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramKvKmaUmGAqBwATCy" coords="311, 144, 718, 172" coords2="311, 144, 718, 172" shape="rect" alt="Introduzca su correo y contraseña:Label" id="areadiagramKvKmaUmGAqBwATCy_map_u6.ntkmGAqBwAQ0h" href="#KvKmaUmGAqBwATCy;u6.ntkmGAqBwAQ0h" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramKvKmaUmGAqBwATCy" coords="270, 332, 759, 362" coords2="270, 332, 759, 362" shape="rect" alt="Contraseña:Text Field" id="areadiagramKvKmaUmGAqBwATCy_map_EImntkmGAqBwAQ0Q" href="#KvKmaUmGAqBwATCy;EImntkmGAqBwAQ0Q" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramKvKmaUmGAqBwATCy" coords="270, 271, 759, 301" coords2="270, 271, 759, 301" shape="rect" alt="Email/Correo Electrónico:Text Field" id="areadiagramKvKmaUmGAqBwATCy_map_RwGntkmGAqBwAQ0G" href="#KvKmaUmGAqBwATCy;RwGntkmGAqBwAQ0G" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramKvKmaUmGAqBwATCy" coords="238, 236, 799, 429" coords2="238, 236, 799, 429" shape="rect" alt="Panel:Panel" id="areadiagramKvKmaUmGAqBwATCy_map_03ngdkmGAqBwARKv" href="#KvKmaUmGAqBwATCy;03ngdkmGAqBwARKv" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramKvKmaUmGAqBwATCy" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramKvKmaUmGAqBwATCy_map_.GfDtkmGAqBwAQmw" href="#KvKmaUmGAqBwATCy;.GfDtkmGAqBwAQmw" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+					<img id="diagramhpN3tkmGAqBwAQ4J" src="../images/Web_Wireframe1_State3.png" usemap="#diagramhpN3tkmGAqBwAQ4J_map" class="Image" width="1030" height="774" style="display: none;"/>
+					<map name="diagramhpN3tkmGAqBwAQ4J_map">
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="295, 97, 733, 133" coords2="295, 97, 733, 133" shape="rect" alt="Introduzca sus datos para el registro
+:Label" id="areadiagramhpN3tkmGAqBwAQ4J_map_8qXvtkmGAqBwARAe" href="#hpN3tkmGAqBwAQ4J;8qXvtkmGAqBwARAe" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="312, 683, 412, 713" coords2="312, 683, 412, 713" shape="rect" alt="Cancelar:Button" id="areadiagramhpN3tkmGAqBwAQ4J_map_CPGAdkmGAqBwARFQ" href="#hpN3tkmGAqBwAQ4J;CPGAdkmGAqBwARFQ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="595, 683, 695, 713" coords2="595, 683, 695, 713" shape="rect" alt="Confirmar:Button" id="areadiagramhpN3tkmGAqBwAQ4J_map_i12AdkmGAqBwARFb" href="#hpN3tkmGAqBwAQ4J;i12AdkmGAqBwARFb" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="548, 572, 659, 595" coords2="548, 572, 659, 595" shape="rect" alt="Imagen de fondo
+:Label" id="areadiagramhpN3tkmGAqBwAQ4J_map_MZsgdkmGAqBwARHq" href="#hpN3tkmGAqBwAQ4J;MZsgdkmGAqBwARHq" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="281, 572, 392, 595" coords2="281, 572, 392, 595" shape="rect" alt="Imagen de perfil:Label" id="areadiagramhpN3tkmGAqBwAQ4J_map_jGkgdkmGAqBwARHY" href="#hpN3tkmGAqBwAQ4J;jGkgdkmGAqBwARHY" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="459, 462, 748, 562" coords2="459, 462, 748, 562" shape="rect" alt="Image:Image" id="areadiagramhpN3tkmGAqBwAQ4J_map_zpggdkmGAqBwARGn" href="#hpN3tkmGAqBwAQ4J;zpggdkmGAqBwARGn" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="286, 462, 386, 562" coords2="286, 462, 386, 562" shape="rect" alt="Image:Image" id="areadiagramhpN3tkmGAqBwAQ4J_map_N4ggdkmGAqBwARGf" href="#hpN3tkmGAqBwAQ4J;N4ggdkmGAqBwARGf" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="271, 388, 760, 418" coords2="271, 388, 760, 418" shape="rect" alt="Confirmar contraseña:Text Field" id="areadiagramhpN3tkmGAqBwAQ4J_map_DijvtkmGAqBwAQ.v" href="#hpN3tkmGAqBwAQ4J;DijvtkmGAqBwAQ.v" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="271, 341, 760, 371" coords2="271, 341, 760, 371" shape="rect" alt="Contraseña:Text Field" id="areadiagramhpN3tkmGAqBwAQ4J_map_fO9vtkmGAqBwAQ.j" href="#hpN3tkmGAqBwAQ4J;fO9vtkmGAqBwAQ.j" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="271, 294, 760, 324" coords2="271, 294, 760, 324" shape="rect" alt="Email/Correo Electrónico:Text Field" id="areadiagramhpN3tkmGAqBwAQ4J_map_pltvtkmGAqBwAQ.b" href="#hpN3tkmGAqBwAQ4J;pltvtkmGAqBwAQ.b" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="271, 247, 760, 277" coords2="271, 247, 760, 277" shape="rect" alt="Descripción:Text Field" id="areadiagramhpN3tkmGAqBwAQ4J_map_5fNvtkmGAqBwAQ.V" href="#hpN3tkmGAqBwAQ4J;5fNvtkmGAqBwAQ.V" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="271, 195, 760, 225" coords2="271, 195, 760, 225" shape="rect" alt="Identificador del usuario:Text Field" id="areadiagramhpN3tkmGAqBwAQ4J_map_cdVvtkmGAqBwAQ.F" href="#hpN3tkmGAqBwAQ4J;cdVvtkmGAqBwAQ.F" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="235, 165, 794, 652" coords2="235, 165, 794, 652" shape="rect" alt="Panel:Panel" id="areadiagramhpN3tkmGAqBwAQ4J_map_kvKAdkmGAqBwARFF" href="#hpN3tkmGAqBwAQ4J;kvKAdkmGAqBwARFF" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhpN3tkmGAqBwAQ4J" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramhpN3tkmGAqBwAQ4J_map_.GfDtkmGAqBwAQmw" href="#hpN3tkmGAqBwAQ4J;.GfDtkmGAqBwAQmw" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+					<img id="diagramyQUmaUmGAqBwAS4K" src="../images/Web_Wireframe1_State32.png" usemap="#diagramyQUmaUmGAqBwAS4K_map" class="Image" width="1030" height="774" style="display: none;"/>
+					<map name="diagramyQUmaUmGAqBwAS4K_map">
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="805, 341, 990, 411" coords2="805, 341, 990, 411" shape="rect" alt="La contraseña no tiene el formato correcto: (La contraseña debe contener entre 8 y 14 caracteres, una letra mayúscula, un
+carácter especial):Label" id="areadiagramyQUmaUmGAqBwAS4K_map_xS6maUmGAqBwATG7" href="#yQUmaUmGAqBwAS4K;xS6maUmGAqBwATG7" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="295, 97, 733, 133" coords2="295, 97, 733, 133" shape="rect" alt="Introduzca sus datos para el registro
+:Label" id="areadiagramyQUmaUmGAqBwAS4K_map_8qXvtkmGAqBwARAe" href="#yQUmaUmGAqBwAS4K;8qXvtkmGAqBwARAe" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="312, 683, 412, 713" coords2="312, 683, 412, 713" shape="rect" alt="Cancelar:Button" id="areadiagramyQUmaUmGAqBwAS4K_map_CPGAdkmGAqBwARFQ" href="#yQUmaUmGAqBwAS4K;CPGAdkmGAqBwARFQ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="595, 683, 695, 713" coords2="595, 683, 695, 713" shape="rect" alt="Confirmar:Button" id="areadiagramyQUmaUmGAqBwAS4K_map_i12AdkmGAqBwARFb" href="#yQUmaUmGAqBwAS4K;i12AdkmGAqBwARFb" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="548, 572, 659, 595" coords2="548, 572, 659, 595" shape="rect" alt="Imagen de fondo
+:Label" id="areadiagramyQUmaUmGAqBwAS4K_map_MZsgdkmGAqBwARHq" href="#yQUmaUmGAqBwAS4K;MZsgdkmGAqBwARHq" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="281, 572, 392, 595" coords2="281, 572, 392, 595" shape="rect" alt="Imagen de perfil:Label" id="areadiagramyQUmaUmGAqBwAS4K_map_jGkgdkmGAqBwARHY" href="#yQUmaUmGAqBwAS4K;jGkgdkmGAqBwARHY" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="459, 462, 748, 562" coords2="459, 462, 748, 562" shape="rect" alt="Image:Image" id="areadiagramyQUmaUmGAqBwAS4K_map_zpggdkmGAqBwARGn" href="#yQUmaUmGAqBwAS4K;zpggdkmGAqBwARGn" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="286, 462, 386, 562" coords2="286, 462, 386, 562" shape="rect" alt="Image:Image" id="areadiagramyQUmaUmGAqBwAS4K_map_N4ggdkmGAqBwARGf" href="#yQUmaUmGAqBwAS4K;N4ggdkmGAqBwARGf" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="271, 388, 760, 418" coords2="271, 388, 760, 418" shape="rect" alt="Confirmar contraseña:Text Field" id="areadiagramyQUmaUmGAqBwAS4K_map_DijvtkmGAqBwAQ.v" href="#yQUmaUmGAqBwAS4K;DijvtkmGAqBwAQ.v" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="271, 341, 760, 371" coords2="271, 341, 760, 371" shape="rect" alt="Contraseña:Text Field" id="areadiagramyQUmaUmGAqBwAS4K_map_fO9vtkmGAqBwAQ.j" href="#yQUmaUmGAqBwAS4K;fO9vtkmGAqBwAQ.j" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="271, 294, 760, 324" coords2="271, 294, 760, 324" shape="rect" alt="Email/Correo Electrónico:Text Field" id="areadiagramyQUmaUmGAqBwAS4K_map_pltvtkmGAqBwAQ.b" href="#yQUmaUmGAqBwAS4K;pltvtkmGAqBwAQ.b" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="271, 247, 760, 277" coords2="271, 247, 760, 277" shape="rect" alt="Descripción:Text Field" id="areadiagramyQUmaUmGAqBwAS4K_map_5fNvtkmGAqBwAQ.V" href="#yQUmaUmGAqBwAS4K;5fNvtkmGAqBwAQ.V" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="271, 195, 760, 225" coords2="271, 195, 760, 225" shape="rect" alt="Identificador del usuario:Text Field" id="areadiagramyQUmaUmGAqBwAS4K_map_cdVvtkmGAqBwAQ.F" href="#yQUmaUmGAqBwAS4K;cdVvtkmGAqBwAQ.F" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="235, 165, 794, 652" coords2="235, 165, 794, 652" shape="rect" alt="Panel:Panel" id="areadiagramyQUmaUmGAqBwAS4K_map_kvKAdkmGAqBwARFF" href="#yQUmaUmGAqBwAS4K;kvKAdkmGAqBwARFF" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramyQUmaUmGAqBwAS4K" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramyQUmaUmGAqBwAS4K_map_.GfDtkmGAqBwAQmw" href="#yQUmaUmGAqBwAS4K;.GfDtkmGAqBwAQmw" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+					<img id="diagramhznnDkmGAqBwAQhI" src="../images/Web_Wireframe1_State4.png" usemap="#diagramhznnDkmGAqBwAQhI_map" class="Image" width="1030" height="774" style="display: none;"/>
+					<map name="diagramhznnDkmGAqBwAQhI_map">
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="887, 106, 949, 136" coords2="887, 106, 949, 136" shape="rect" alt="Log-in:Button" id="areadiagramhznnDkmGAqBwAQhI_map_Z_DS2UmGAqBwAV6k" href="#hznnDkmGAqBwAQhI;Z_DS2UmGAqBwAV6k" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="736, 106, 836, 136" coords2="736, 106, 836, 136" shape="rect" alt="Registrar:Button" id="areadiagramhznnDkmGAqBwAQhI_map_riVS2UmGAqBwAVuu" href="#hznnDkmGAqBwAQhI;riVS2UmGAqBwAVuu" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="13, 71, 685, 171" coords2="13, 71, 685, 171" shape="rect" alt="Image:Image" id="areadiagramhznnDkmGAqBwAQhI_map_Z2NvDkmGAqBwARJA" href="#hznnDkmGAqBwAQhI;Z2NvDkmGAqBwARJA" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="124, 183, 152, 219" coords2="124, 183, 152, 219" shape="rect" alt="#:Label" id="areadiagramhznnDkmGAqBwAQhI_map_K9VqdkmGAqBwARPg" href="#hznnDkmGAqBwAQhI;K9VqdkmGAqBwARPg" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="774, 647, 875, 670" coords2="774, 647, 875, 670" shape="rect" alt="🔁189    ♥2.2k  :Label" id="areadiagramhznnDkmGAqBwAQhI_map_ie5hv0mGAqAAJyUL" href="#hznnDkmGAqBwAQhI;ie5hv0mGAqAAJyUL" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="138, 636, 182, 681" coords2="138, 636, 182, 681" shape="rect" alt="Button:Button" id="areadiagramhznnDkmGAqBwAQhI_map_Ce5hv0mGAqAAJyUI" href="#hznnDkmGAqBwAQhI;Ce5hv0mGAqAAJyUI" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="195, 647, 379, 670" coords2="195, 647, 379, 670" shape="rect" alt="<Texto del tweet> #ejemplo
+:Label" id="areadiagramhznnDkmGAqBwAQhI_map_8e5hv0mGAqAAJyUE" href="#hznnDkmGAqBwAQhI;8e5hv0mGAqAAJyUE" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="132, 632, 894, 685" coords2="132, 632, 894, 685" shape="rect" alt="Panel:Panel" id="areadiagramhznnDkmGAqBwAQhI_map_ce5hv0mGAqAAJyUC" href="#hznnDkmGAqBwAQhI;ce5hv0mGAqAAJyUC" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="774, 589, 874, 612" coords2="774, 589, 874, 612" shape="rect" alt="🔁20      ♥3k  :Label" id="areadiagramhznnDkmGAqBwAQhI_map_jPphv0mGAqAAJyTx" href="#hznnDkmGAqBwAQhI;jPphv0mGAqAAJyTx" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="138, 578, 182, 623" coords2="138, 578, 182, 623" shape="rect" alt="Button:Button" id="areadiagramhznnDkmGAqBwAQhI_map_DPphv0mGAqAAJyTu" href="#hznnDkmGAqBwAQhI;DPphv0mGAqAAJyTu" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="195, 589, 379, 612" coords2="195, 589, 379, 612" shape="rect" alt="<Texto del tweet> #ejemplo
+:Label" id="areadiagramhznnDkmGAqBwAQhI_map_dPphv0mGAqAAJyTq" href="#hznnDkmGAqBwAQhI;dPphv0mGAqAAJyTq" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="132, 574, 894, 627" coords2="132, 574, 894, 627" shape="rect" alt="Panel:Panel" id="areadiagramhznnDkmGAqBwAQhI_map_dPphv0mGAqAAJyTo" href="#hznnDkmGAqBwAQhI;dPphv0mGAqAAJyTo" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="775, 532, 875, 555" coords2="775, 532, 875, 555" shape="rect" alt="🔁3k      ♥4.7k  :Label" id="areadiagramhznnDkmGAqBwAQhI_map_AYJhv0mGAqAAJyTX" href="#hznnDkmGAqBwAQhI;AYJhv0mGAqAAJyTX" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="138, 521, 182, 566" coords2="138, 521, 182, 566" shape="rect" alt="Button:Button" id="areadiagramhznnDkmGAqBwAQhI_map__oJhv0mGAqAAJyTU" href="#hznnDkmGAqBwAQhI;_oJhv0mGAqAAJyTU" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="195, 532, 379, 555" coords2="195, 532, 379, 555" shape="rect" alt="<Texto del tweet> #ejemplo
+:Label" id="areadiagramhznnDkmGAqBwAQhI_map_foJhv0mGAqAAJyTQ" href="#hznnDkmGAqBwAQhI;foJhv0mGAqAAJyTQ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="132, 517, 894, 570" coords2="132, 517, 894, 570" shape="rect" alt="Panel:Panel" id="areadiagramhznnDkmGAqBwAQhI_map_3oJhv0mGAqAAJyTO" href="#hznnDkmGAqBwAQhI;3oJhv0mGAqAAJyTO" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="473, 657, 493, 724" coords2="473, 657, 493, 724" shape="rect" alt="·:Label" id="areadiagramhznnDkmGAqBwAQhI_map_VYhhv0mGAqAAJyTB" href="#hznnDkmGAqBwAQhI;VYhhv0mGAqAAJyTB" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="503, 657, 523, 723" coords2="503, 657, 523, 723" shape="rect" alt="·:Label" id="areadiagramhznnDkmGAqBwAQhI_map_eYhhv0mGAqAAJyS8" href="#hznnDkmGAqBwAQhI;eYhhv0mGAqAAJyS8" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="532, 657, 552, 724" coords2="532, 657, 552, 724" shape="rect" alt="·:Label" id="areadiagramhznnDkmGAqBwAQhI_map_CYhhv0mGAqAAJyS3" href="#hznnDkmGAqBwAQhI;CYhhv0mGAqAAJyS3" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="774, 474, 874, 497" coords2="774, 474, 874, 497" shape="rect" alt="🔁10      ♥5k  :Label" id="areadiagramhznnDkmGAqBwAQhI_map_ca1XDkmGAqBwAQrc" href="#hznnDkmGAqBwAQhI;ca1XDkmGAqBwAQrc" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="138, 463, 182, 508" coords2="138, 463, 182, 508" shape="rect" alt="Button:Button" id="areadiagramhznnDkmGAqBwAQhI_map_Ma1XDkmGAqBwAQrZ" href="#hznnDkmGAqBwAQhI;Ma1XDkmGAqBwAQrZ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="195, 474, 379, 497" coords2="195, 474, 379, 497" shape="rect" alt="<Texto del tweet> #ejemplo
+:Label" id="areadiagramhznnDkmGAqBwAQhI_map_Ua1XDkmGAqBwAQrV" href="#hznnDkmGAqBwAQhI;Ua1XDkmGAqBwAQrV" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="132, 459, 894, 512" coords2="132, 459, 894, 512" shape="rect" alt="Panel:Panel" id="areadiagramhznnDkmGAqBwAQhI_map_Ua1XDkmGAqBwAQrT" href="#hznnDkmGAqBwAQhI;Ua1XDkmGAqBwAQrT" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="771, 416, 871, 439" coords2="771, 416, 871, 439" shape="rect" alt="🔁1.7k    ♥8k  :Label" id="areadiagramhznnDkmGAqBwAQhI_map_t0ZXDkmGAqBwAQqy" href="#hznnDkmGAqBwAQhI;t0ZXDkmGAqBwAQqy" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="138, 405, 182, 450" coords2="138, 405, 182, 450" shape="rect" alt="Button:Button" id="areadiagramhznnDkmGAqBwAQhI_map_10ZXDkmGAqBwAQqv" href="#hznnDkmGAqBwAQhI;10ZXDkmGAqBwAQqv" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="195, 416, 379, 439" coords2="195, 416, 379, 439" shape="rect" alt="<Texto del tweet> #ejemplo
+:Label" id="areadiagramhznnDkmGAqBwAQhI_map_F0ZXDkmGAqBwAQqr" href="#hznnDkmGAqBwAQhI;F0ZXDkmGAqBwAQqr" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="132, 401, 894, 454" coords2="132, 401, 894, 454" shape="rect" alt="Panel:Panel" id="areadiagramhznnDkmGAqBwAQhI_map_50ZXDkmGAqBwAQqp" href="#hznnDkmGAqBwAQhI;50ZXDkmGAqBwAQqp" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="774, 358, 874, 381" coords2="774, 358, 874, 381" shape="rect" alt="🔁15      ♥10k  :Label" id="areadiagramhznnDkmGAqBwAQhI_map_wPtWdkmGAqBwARlf" href="#hznnDkmGAqBwAQhI;wPtWdkmGAqBwARlf" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="138, 347, 182, 392" coords2="138, 347, 182, 392" shape="rect" alt="Button:Button" id="areadiagramhznnDkmGAqBwAQhI_map__3tWdkmGAqBwARlY" href="#hznnDkmGAqBwAQhI;_3tWdkmGAqBwARlY" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="195, 358, 379, 381" coords2="195, 358, 379, 381" shape="rect" alt="<Texto del tweet> #ejemplo
+:Label" id="areadiagramhznnDkmGAqBwAQhI_map_gPtWdkmGAqBwARlb" href="#hznnDkmGAqBwAQhI;gPtWdkmGAqBwARlb" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="132, 343, 894, 396" coords2="132, 343, 894, 396" shape="rect" alt="Panel:Panel" id="areadiagramhznnDkmGAqBwAQhI_map_f3tWdkmGAqBwARlW" href="#hznnDkmGAqBwAQhI;f3tWdkmGAqBwARlW" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="774, 299, 874, 322" coords2="774, 299, 874, 322" shape="rect" alt="🔁200    ♥15k  :Label" id="areadiagramhznnDkmGAqBwAQhI_map_yAEGdkmGAqBwARb4" href="#hznnDkmGAqBwAQhI;yAEGdkmGAqBwARb4" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="138, 288, 182, 333" coords2="138, 288, 182, 333" shape="rect" alt="Button:Button" id="areadiagramhznnDkmGAqBwAQhI_map_sEamdkmGAqBwARhj" href="#hznnDkmGAqBwAQhI;sEamdkmGAqBwARhj" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="195, 299, 379, 322" coords2="195, 299, 379, 322" shape="rect" alt="<Texto del tweet> #ejemplo
+:Label" id="areadiagramhznnDkmGAqBwAQhI_map_wk86dkmGAqBwARXm" href="#hznnDkmGAqBwAQhI;wk86dkmGAqBwARXm" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="132, 284, 894, 337" coords2="132, 284, 894, 337" shape="rect" alt="Panel:Panel" id="areadiagramhznnDkmGAqBwAQhI_map_ceAWdkmGAqBwARjA" href="#hznnDkmGAqBwAQhI;ceAWdkmGAqBwARjA" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="774, 243, 874, 266" coords2="774, 243, 874, 266" shape="rect" alt="🔁2k      ♥20k  :Label" id="areadiagramhznnDkmGAqBwAQhI_map_wZVWdkmGAqBwARk1" href="#hznnDkmGAqBwAQhI;wZVWdkmGAqBwARk1" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="139, 232, 183, 277" coords2="139, 232, 183, 277" shape="rect" alt="Button:Button" id="areadiagramhznnDkmGAqBwAQhI_map_fpVWdkmGAqBwARku" href="#hznnDkmGAqBwAQhI;fpVWdkmGAqBwARku" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="196, 243, 380, 266" coords2="196, 243, 380, 266" shape="rect" alt="<Texto del tweet> #ejemplo
+:Label" id="areadiagramhznnDkmGAqBwAQhI_map_AZVWdkmGAqBwARkx" href="#hznnDkmGAqBwAQhI;AZVWdkmGAqBwARkx" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="133, 228, 895, 281" coords2="133, 228, 895, 281" shape="rect" alt="Panel:Panel" id="areadiagramhznnDkmGAqBwAQhI_map_PpVWdkmGAqBwARks" href="#hznnDkmGAqBwAQhI;PpVWdkmGAqBwARks" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="124, 225, 904, 769" coords2="124, 225, 904, 769" shape="rect" alt="List Group:List Group" id="areadiagramhznnDkmGAqBwAQhI_map_3K0LtkmGAqBwAQrv" href="#hznnDkmGAqBwAQhI;3K0LtkmGAqBwAQrv" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="485, 195, 543, 225" coords2="485, 195, 543, 225" shape="rect" alt="Hashtag:Label" id="areadiagramhznnDkmGAqBwAQhI_map_WbFrtkmGAqBwAQsc" href="#hznnDkmGAqBwAQhI;WbFrtkmGAqBwAQsc" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="115, 183, 914, 769" coords2="115, 183, 914, 769" shape="rect" alt="Panel:Panel" id="areadiagramhznnDkmGAqBwAQhI_map_8TlqdkmGAqBwARPR" href="#hznnDkmGAqBwAQhI;8TlqdkmGAqBwARPR" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhznnDkmGAqBwAQhI" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramhznnDkmGAqBwAQhI_map_.GfDtkmGAqBwAQmw" href="#hznnDkmGAqBwAQhI;.GfDtkmGAqBwAQmw" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+					<img id="diagramhcXfDkmGAqBwARV1" src="../images/Web_Wireframe1_State5.png" usemap="#diagramhcXfDkmGAqBwARV1_map" class="Image" width="1030" height="774" style="display: none;"/>
+					<map name="diagramhcXfDkmGAqBwARV1_map">
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="710, 418, 822, 469" coords2="710, 418, 822, 469" shape="rect" alt="Retweets:Label" id="areadiagramhcXfDkmGAqBwARV1_map_TmLB2UmGAqBwAXHo" href="#hcXfDkmGAqBwARV1;TmLB2UmGAqBwAXHo" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="844, 646, 930, 668" coords2="844, 646, 930, 668" shape="rect" alt=" 🔁 10k  💬 20     :Label" id="areadiagramhcXfDkmGAqBwARV1_map_f89Jv0mGAqAAJyt_" href="#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyt_" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="599, 645, 783, 667" coords2="599, 645, 783, 667" shape="rect" alt="<Texto del tweet>
+:Label" id="areadiagramhcXfDkmGAqBwARV1_map_f89Jv0mGAqAAJyt4" href="#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyt4" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="936, 643, 981, 664" coords2="936, 643, 981, 664" shape="rect" alt="♥ 311  :Label" id="areadiagramhcXfDkmGAqBwARV1_map_f89Jv0mGAqAAJyt0" href="#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyt0" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="542, 634, 586, 679" coords2="542, 634, 586, 679" shape="rect" alt="Button:Button" id="areadiagramhcXfDkmGAqBwARV1_map_f89Jv0mGAqAAJyt8" href="#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyt8" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="536, 631, 994, 683" coords2="536, 631, 994, 683" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_f89Jv0mGAqAAJyty" href="#hcXfDkmGAqBwARV1;f89Jv0mGAqAAJyty" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="844, 588, 931, 610" coords2="844, 588, 931, 610" shape="rect" alt=" 🔁 729  💬 20     :Label" id="areadiagramhcXfDkmGAqBwARV1_map_0mFJv0mGAqAAJytS" href="#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytS" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="599, 587, 783, 609" coords2="599, 587, 783, 609" shape="rect" alt="<Texto del tweet>
+:Label" id="areadiagramhcXfDkmGAqBwARV1_map_0mFJv0mGAqAAJytL" href="#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytL" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="935, 586, 983, 607" coords2="935, 586, 983, 607" shape="rect" alt="♥ 1.8k  :Label" id="areadiagramhcXfDkmGAqBwARV1_map_0mFJv0mGAqAAJytH" href="#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytH" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="542, 577, 586, 622" coords2="542, 577, 586, 622" shape="rect" alt="Button:Button" id="areadiagramhcXfDkmGAqBwARV1_map_0mFJv0mGAqAAJytP" href="#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytP" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="536, 573, 994, 625" coords2="536, 573, 994, 625" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_0mFJv0mGAqAAJytF" href="#hcXfDkmGAqBwARV1;0mFJv0mGAqAAJytF" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="843, 531, 933, 553" coords2="843, 531, 933, 553" shape="rect" alt=" 🔁 1.8k 💬 20     :Label" id="areadiagramhcXfDkmGAqBwARV1_map_NdpJv0mGAqAAJysz" href="#hcXfDkmGAqBwARV1;NdpJv0mGAqAAJysz" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="599, 529, 783, 551" coords2="599, 529, 783, 551" shape="rect" alt="<Texto del tweet>
+:Label" id="areadiagramhcXfDkmGAqBwARV1_map_NdpJv0mGAqAAJyss" href="#hcXfDkmGAqBwARV1;NdpJv0mGAqAAJyss" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="935, 528, 993, 549" coords2="935, 528, 993, 549" shape="rect" alt="♥ 1.2k  :Label" id="areadiagramhcXfDkmGAqBwARV1_map_1dpJv0mGAqAAJyso" href="#hcXfDkmGAqBwARV1;1dpJv0mGAqAAJyso" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="542, 518, 586, 563" coords2="542, 518, 586, 563" shape="rect" alt="Button:Button" id="areadiagramhcXfDkmGAqBwARV1_map_NdpJv0mGAqAAJysw" href="#hcXfDkmGAqBwARV1;NdpJv0mGAqAAJysw" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="536, 516, 994, 568" coords2="536, 516, 994, 568" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_VdpJv0mGAqAAJysm" href="#hcXfDkmGAqBwARV1;VdpJv0mGAqAAJysm" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="844, 474, 939, 496" coords2="844, 474, 939, 496" shape="rect" alt=" 🔁 10   💬 20     :Label" id="areadiagramhcXfDkmGAqBwARV1_map_INRJv0mGAqAAJysM" href="#hcXfDkmGAqBwARV1;INRJv0mGAqAAJysM" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="599, 473, 783, 495" coords2="599, 473, 783, 495" shape="rect" alt="<Texto del tweet>
+:Label" id="areadiagramhcXfDkmGAqBwARV1_map_INRJv0mGAqAAJysF" href="#hcXfDkmGAqBwARV1;INRJv0mGAqAAJysF" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="936, 471, 983, 486" coords2="936, 471, 983, 486" shape="rect" alt="♥ 2  :Label" id="areadiagramhcXfDkmGAqBwARV1_map_INRJv0mGAqAAJysB" href="#hcXfDkmGAqBwARV1;INRJv0mGAqAAJysB" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="542, 462, 586, 507" coords2="542, 462, 586, 507" shape="rect" alt="Button:Button" id="areadiagramhcXfDkmGAqBwARV1_map_INRJv0mGAqAAJysJ" href="#hcXfDkmGAqBwARV1;INRJv0mGAqAAJysJ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="536, 459, 994, 511" coords2="536, 459, 994, 511" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_INRJv0mGAqAAJyr_" href="#hcXfDkmGAqBwARV1;INRJv0mGAqAAJyr_" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="758, 653, 778, 719" coords2="758, 653, 778, 719" shape="rect" alt="·:Label" id="areadiagramhcXfDkmGAqBwARV1_map_Ie9Zv0mGAqAAJy62" href="#hcXfDkmGAqBwARV1;Ie9Zv0mGAqAAJy62" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="786, 653, 806, 720" coords2="786, 653, 806, 720" shape="rect" alt="·:Label" id="areadiagramhcXfDkmGAqBwARV1_map__u9Zv0mGAqAAJy6x" href="#hcXfDkmGAqBwARV1;_u9Zv0mGAqAAJy6x" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="728, 653, 748, 720" coords2="728, 653, 748, 720" shape="rect" alt="·:Label" id="areadiagramhcXfDkmGAqBwARV1_map_Ee9Zv0mGAqAAJy67" href="#hcXfDkmGAqBwARV1;Ee9Zv0mGAqAAJy67" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="530, 455, 1002, 745" coords2="530, 455, 1002, 745" shape="rect" alt="List Group:List Group" id="areadiagramhcXfDkmGAqBwARV1_map_MmLB2UmGAqBwAXGj" href="#hcXfDkmGAqBwARV1;MmLB2UmGAqBwAXGj" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="520, 418, 1011, 756" coords2="520, 418, 1011, 756" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_0mLB2UmGAqBwAXGh" href="#hcXfDkmGAqBwARV1;0mLB2UmGAqBwAXGh" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="510, 408, 1025, 769" coords2="510, 408, 1025, 769" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_0mLB2UmGAqBwAXGf" href="#hcXfDkmGAqBwARV1;0mLB2UmGAqBwAXGf" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="210, 417, 305, 468" coords2="210, 417, 305, 468" shape="rect" alt="Tweets:Label" id="areadiagramhcXfDkmGAqBwARV1_map_RCDB2UmGAqBwAXDA" href="#hcXfDkmGAqBwARV1;RCDB2UmGAqBwAXDA" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="218, 654, 238, 721" coords2="218, 654, 238, 721" shape="rect" alt="·:Label" id="areadiagramhcXfDkmGAqBwARV1_map_yotZv0mGAqAAJy6k" href="#hcXfDkmGAqBwARV1;yotZv0mGAqAAJy6k" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="248, 654, 268, 720" coords2="248, 654, 268, 720" shape="rect" alt="·:Label" id="areadiagramhcXfDkmGAqBwARV1_map_ootZv0mGAqAAJy6f" href="#hcXfDkmGAqBwARV1;ootZv0mGAqAAJy6f" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="276, 654, 296, 721" coords2="276, 654, 296, 721" shape="rect" alt="·:Label" id="areadiagramhcXfDkmGAqBwARV1_map_ootZv0mGAqAAJy6a" href="#hcXfDkmGAqBwARV1;ootZv0mGAqAAJy6a" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="332, 638, 482, 660" coords2="332, 638, 482, 660" shape="rect" alt=" 🔁 100  💬 20     :Label" id="areadiagramhcXfDkmGAqBwARV1_map__EZxv0mGAqAAJypl" href="#hcXfDkmGAqBwARV1;_EZxv0mGAqAAJypl" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="33, 626, 77, 671" coords2="33, 626, 77, 671" shape="rect" alt="Button:Button" id="areadiagramhcXfDkmGAqBwARV1_map_fEZxv0mGAqAAJypi" href="#hcXfDkmGAqBwARV1;fEZxv0mGAqAAJypi" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="90, 637, 274, 659" coords2="90, 637, 274, 659" shape="rect" alt="<Texto del tweet>
+:Label" id="areadiagramhcXfDkmGAqBwARV1_map_fEZxv0mGAqAAJype" href="#hcXfDkmGAqBwARV1;fEZxv0mGAqAAJype" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="430, 636, 473, 657" coords2="430, 636, 473, 657" shape="rect" alt="♥ 69  :Label" id="areadiagramhcXfDkmGAqBwARV1_map_vEZxv0mGAqAAJypa" href="#hcXfDkmGAqBwARV1;vEZxv0mGAqAAJypa" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="27, 623, 485, 675" coords2="27, 623, 485, 675" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_PEZxv0mGAqAAJypY" href="#hcXfDkmGAqBwARV1;PEZxv0mGAqAAJypY" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="332, 582, 464, 604" coords2="332, 582, 464, 604" shape="rect" alt=" 🔁 2k    💬 20     :Label" id="areadiagramhcXfDkmGAqBwARV1_map_Xoexv0mGAqAAJyo8" href="#hcXfDkmGAqBwARV1;Xoexv0mGAqAAJyo8" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="32, 570, 76, 615" coords2="32, 570, 76, 615" shape="rect" alt="Button:Button" id="areadiagramhcXfDkmGAqBwARV1_map_noexv0mGAqAAJyo5" href="#hcXfDkmGAqBwARV1;noexv0mGAqAAJyo5" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="89, 581, 273, 603" coords2="89, 581, 273, 603" shape="rect" alt="<Texto del tweet>
+:Label" id="areadiagramhcXfDkmGAqBwARV1_map_noexv0mGAqAAJyo1" href="#hcXfDkmGAqBwARV1;noexv0mGAqAAJyo1" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="427, 579, 474, 602" coords2="427, 579, 474, 602" shape="rect" alt="♥ 1k  :Label" id="areadiagramhcXfDkmGAqBwARV1_map_Hoexv0mGAqAAJyox" href="#hcXfDkmGAqBwARV1;Hoexv0mGAqAAJyox" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="27, 567, 485, 619" coords2="27, 567, 485, 619" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_Hoexv0mGAqAAJyov" href="#hcXfDkmGAqBwARV1;Hoexv0mGAqAAJyov" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="332, 528, 425, 550" coords2="332, 528, 425, 550" shape="rect" alt=" 🔁 1.1k 💬 20     :Label" id="areadiagramhcXfDkmGAqBwARV1_map_8yKxv0mGAqAAJyoL" href="#hcXfDkmGAqBwARV1;8yKxv0mGAqAAJyoL" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="33, 516, 77, 561" coords2="33, 516, 77, 561" shape="rect" alt="Button:Button" id="areadiagramhcXfDkmGAqBwARV1_map_8yKxv0mGAqAAJyoI" href="#hcXfDkmGAqBwARV1;8yKxv0mGAqAAJyoI" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="91, 527, 275, 549" coords2="91, 527, 275, 549" shape="rect" alt="<Texto del tweet>
+:Label" id="areadiagramhcXfDkmGAqBwARV1_map_cyKxv0mGAqAAJyoE" href="#hcXfDkmGAqBwARV1;cyKxv0mGAqAAJyoE" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="427, 526, 482, 548" coords2="427, 526, 482, 548" shape="rect" alt="♥ 2.2k  :Label" id="areadiagramhcXfDkmGAqBwARV1_map_cyKxv0mGAqAAJyoA" href="#hcXfDkmGAqBwARV1;cyKxv0mGAqAAJyoA" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="27, 513, 485, 565" coords2="27, 513, 485, 565" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_syKxv0mGAqAAJyn." href="#hcXfDkmGAqBwARV1;syKxv0mGAqAAJyn." onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="332, 472, 433, 493" coords2="332, 472, 433, 493" shape="rect" alt=" 🔁 1k    💬 20     :Label" id="areadiagramhcXfDkmGAqBwARV1_map_ECDB2UmGAqBwAXCP" href="#hcXfDkmGAqBwARV1;ECDB2UmGAqBwAXCP" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="33, 460, 77, 504" coords2="33, 460, 77, 504" shape="rect" alt="Button:Button" id="areadiagramhcXfDkmGAqBwARV1_map_ICDB2UmGAqBwAXCL" href="#hcXfDkmGAqBwARV1;ICDB2UmGAqBwAXCL" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="90, 471, 274, 493" coords2="90, 471, 274, 493" shape="rect" alt="<Texto del tweet>
+:Label" id="areadiagramhcXfDkmGAqBwARV1_map_wCDB2UmGAqBwAXCH" href="#hcXfDkmGAqBwARV1;wCDB2UmGAqBwAXCH" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="427, 469, 474, 484" coords2="427, 469, 474, 484" shape="rect" alt="♥ 2k  :Label" id="areadiagramhcXfDkmGAqBwARV1_map_QCDB2UmGAqBwAXCD" href="#hcXfDkmGAqBwARV1;QCDB2UmGAqBwAXCD" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="27, 457, 485, 508" coords2="27, 457, 485, 508" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_gCDB2UmGAqBwAXCB" href="#hcXfDkmGAqBwARV1;gCDB2UmGAqBwAXCB" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="22, 454, 493, 744" coords2="22, 454, 493, 744" shape="rect" alt="List Group:List Group" id="areadiagramhcXfDkmGAqBwARV1_map_f8DB2UmGAqBwAXB7" href="#hcXfDkmGAqBwARV1;f8DB2UmGAqBwAXB7" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="10, 417, 500, 754" coords2="10, 417, 500, 754" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_v8DB2UmGAqBwAXB5" href="#hcXfDkmGAqBwARV1;v8DB2UmGAqBwAXB5" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="3, 408, 510, 769" coords2="3, 408, 510, 769" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_38DB2UmGAqBwAXB3" href="#hcXfDkmGAqBwARV1;38DB2UmGAqBwAXB3" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="209, 366, 339, 387" coords2="209, 366, 339, 387" shape="rect" alt="Fecha de registro::Label" id="areadiagramhcXfDkmGAqBwARV1_map_ZGrh2UmGAqBwAXYZ" href="#hcXfDkmGAqBwARV1;ZGrh2UmGAqBwAXYZ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="31, 227, 183, 391" coords2="31, 227, 183, 391" shape="rect" alt="Image:Image" id="areadiagramhcXfDkmGAqBwARV1_map_KJmAjkmGAqBwARgh" href="#hcXfDkmGAqBwARV1;KJmAjkmGAqBwARgh" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="19, 217, 195, 402" coords2="19, 217, 195, 402" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_azggjkmGAqBwARih" href="#hcXfDkmGAqBwARV1;azggjkmGAqBwARih" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="765, 324, 868, 344" coords2="765, 324, 868, 344" shape="rect" alt="Nº de seguidos::Label" id="areadiagramhcXfDkmGAqBwARV1_map__45AjkmGAqBwARhb" href="#hcXfDkmGAqBwARV1;_45AjkmGAqBwARhb" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="765, 366, 888, 387" coords2="765, 366, 888, 387" shape="rect" alt="Nº de seguidores::Label" id="areadiagramhcXfDkmGAqBwARV1_map__1JAjkmGAqBwARhK" href="#hcXfDkmGAqBwARV1;_1JAjkmGAqBwARhK" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="211, 257, 749, 395" coords2="211, 257, 749, 395" shape="rect" alt="Descripción: [...]:Label" id="areadiagramhcXfDkmGAqBwARV1_map_6XeAjkmGAqBwARg6" href="#hcXfDkmGAqBwARV1;6XeAjkmGAqBwARg6" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="211, 227, 324, 257" coords2="211, 227, 324, 257" shape="rect" alt="@Nombreusuario:Label" id="areadiagramhcXfDkmGAqBwARV1_map_qpOAjkmGAqBwARgp" href="#hcXfDkmGAqBwARV1;qpOAjkmGAqBwARgp" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="3, 211, 1026, 408" coords2="3, 211, 1026, 408" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_XBy_DkmGAqBwAReM" href="#hcXfDkmGAqBwARV1;XBy_DkmGAqBwAReM" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="878, 124, 940, 154" coords2="878, 124, 940, 154" shape="rect" alt="Log-in:Button" id="areadiagramhcXfDkmGAqBwARV1_map_V1zS2UmGAqBwAV.B" href="#hcXfDkmGAqBwARV1;V1zS2UmGAqBwAV.B" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="728, 124, 828, 154" coords2="728, 124, 828, 154" shape="rect" alt="Registrar:Button" id="areadiagramhcXfDkmGAqBwARV1_map_mLNS2UmGAqBwAVzT" href="#hcXfDkmGAqBwARV1;mLNS2UmGAqBwAVzT" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="19, 84, 677, 196" coords2="19, 84, 677, 196" shape="rect" alt="Image:Image" id="areadiagramhcXfDkmGAqBwARV1_map_sNj_DkmGAqBwARfY" href="#hcXfDkmGAqBwARV1;sNj_DkmGAqBwARfY" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="4, 69, 1025, 211" coords2="4, 69, 1025, 211" shape="rect" alt="Panel:Panel" id="areadiagramhcXfDkmGAqBwARV1_map_qw8_DkmGAqBwARd." href="#hcXfDkmGAqBwARV1;qw8_DkmGAqBwARd." onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramhcXfDkmGAqBwARV1" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramhcXfDkmGAqBwARV1_map_.GfDtkmGAqBwAQmw" href="#hcXfDkmGAqBwARV1;.GfDtkmGAqBwAQmw" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+					<img id="diagram5IgtUsmGAqBwARNE" src="../images/Web_Wireframe1_State6.png" usemap="#diagram5IgtUsmGAqBwARNE_map" class="Image" width="1030" height="774" style="display: none;"/>
+					<map name="diagram5IgtUsmGAqBwARNE_map">
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="890, 519, 931, 539" coords2="890, 519, 931, 539" shape="rect" alt="♥ 20k  :Label" id="areadiagram5IgtUsmGAqBwARNE_map_qhLtUsmGAqBwARtv" href="#5IgtUsmGAqBwARNE;qhLtUsmGAqBwARtv" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="295, 488, 345, 538" coords2="295, 488, 345, 538" shape="rect" alt="Image:Image" id="areadiagram5IgtUsmGAqBwARNE_map_OhLtUsmGAqBwARt2" href="#5IgtUsmGAqBwARNE;OhLtUsmGAqBwARt2" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="360, 501, 858, 559" coords2="360, 501, 858, 559" shape="rect" alt="Text Field:Text Field" id="areadiagram5IgtUsmGAqBwARNE_map_AhLtUsmGAqBwARtp" href="#5IgtUsmGAqBwARNE;AhLtUsmGAqBwARtp" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="288, 478, 980, 588" coords2="288, 478, 980, 588" shape="rect" alt="Panel:Panel" id="areadiagram5IgtUsmGAqBwARNE_map_yhLtUsmGAqBwARtt" href="#5IgtUsmGAqBwARNE;yhLtUsmGAqBwARtt" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="295, 371, 345, 421" coords2="295, 371, 345, 421" shape="rect" alt="Image:Image" id="areadiagram5IgtUsmGAqBwARNE_map_R.LtUsmGAqBwARte" href="#5IgtUsmGAqBwARNE;R.LtUsmGAqBwARte" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="360, 386, 858, 443" coords2="360, 386, 858, 443" shape="rect" alt="Text Field:Text Field" id="areadiagram5IgtUsmGAqBwARNE_map_p.LtUsmGAqBwARth" href="#5IgtUsmGAqBwARNE;p.LtUsmGAqBwARth" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="890, 404, 931, 424" coords2="890, 404, 931, 424" shape="rect" alt="♥ 20k  :Label" id="areadiagram5IgtUsmGAqBwARNE_map_4.LtUsmGAqBwARtU" href="#5IgtUsmGAqBwARNE;4.LtUsmGAqBwARtU" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="288, 361, 980, 471" coords2="288, 361, 980, 471" shape="rect" alt="Panel:Panel" id="areadiagram5IgtUsmGAqBwARNE_map_e.LtUsmGAqBwARtZ" href="#5IgtUsmGAqBwARNE;e.LtUsmGAqBwARtZ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="157, 516, 297, 537" coords2="157, 516, 297, 537" shape="rect" alt="Line:Line" id="areadiagram5IgtUsmGAqBwARNE_map_VeLtUsmGAqBwARtO" href="#5IgtUsmGAqBwARNE;VeLtUsmGAqBwARtO" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="157, 401, 301, 421" coords2="157, 401, 301, 421" shape="rect" alt="Line:Line" id="areadiagram5IgtUsmGAqBwARNE_map_UeLtUsmGAqBwARtI" href="#5IgtUsmGAqBwARNE;UeLtUsmGAqBwARtI" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="156, 308, 178, 710" coords2="156, 308, 178, 710" shape="rect" alt="Line:Line" id="areadiagram5IgtUsmGAqBwARNE_map_5uLtUsmGAqBwARtC" href="#5IgtUsmGAqBwARNE;5uLtUsmGAqBwARtC" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="62, 96, 147, 183" coords2="62, 96, 147, 183" shape="rect" alt="Image:Image" id="areadiagram5IgtUsmGAqBwARNE_map_s2LtUsmGAqBwARsu" href="#5IgtUsmGAqBwARNE;s2LtUsmGAqBwARsu" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="165, 96, 280, 118" coords2="165, 96, 280, 118" shape="rect" alt="@UsuarioEjemplo:Label" id="areadiagram5IgtUsmGAqBwARNE_map_S2LtUsmGAqBwARsx" href="#5IgtUsmGAqBwARNE;S2LtUsmGAqBwARsx" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="175, 137, 310, 159" coords2="175, 137, 310, 159" shape="rect" alt="*El texto del tweet*:Label" id="areadiagram5IgtUsmGAqBwARNE_map_a2LtUsmGAqBwARs3" href="#5IgtUsmGAqBwARNE;a2LtUsmGAqBwARs3" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="165, 128, 917, 243" coords2="165, 128, 917, 243" shape="rect" alt="Text Field:Text Field" id="areadiagram5IgtUsmGAqBwARNE_map_q2LtUsmGAqBwARs1" href="#5IgtUsmGAqBwARNE;q2LtUsmGAqBwARs1" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="841, 273, 882, 293" coords2="841, 273, 882, 293" shape="rect" alt="♥ 20k  :Label" id="areadiagram5IgtUsmGAqBwARNE_map_WWLtUsmGAqBwARsi" href="#5IgtUsmGAqBwARNE;WWLtUsmGAqBwARsi" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="791, 273, 936, 305" coords2="791, 273, 936, 305" shape="rect" alt="🔁 3k                    💬 20 :Label" id="areadiagram5IgtUsmGAqBwARNE_map_LWLtUsmGAqBwARsn" href="#5IgtUsmGAqBwARNE;LWLtUsmGAqBwARsn" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="47, 83, 981, 319" coords2="47, 83, 981, 319" shape="rect" alt="Panel:Panel" id="areadiagram5IgtUsmGAqBwARNE_map_M2LtUsmGAqBwARss" href="#5IgtUsmGAqBwARNE;M2LtUsmGAqBwARss" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram5IgtUsmGAqBwARNE" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagram5IgtUsmGAqBwARNE_map_.GfDtkmGAqBwAQmw" href="#5IgtUsmGAqBwARNE;.GfDtkmGAqBwAQmw" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+	</p>
+	<div style="width:640px; height:680px; position: fixed; _position: absolute; overflow: scroll; background-color: #F0F0F0; top: 100px; left: 100px; padding: 10px; display: none;" id="wireframeStatesDialog">
+		<span data-value="Web Wireframe1 - Initial" style="display: none;" id="pageTitleTextTafDtkmGAqBwAQmu">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 810; top: 30; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeTafDtkmGAqBwAQmu', 'diagramTafDtkmGAqBwAQmu', 'none', 'elementsTafDtkmGAqBwAQmu', 'PageTitleText', 'pageTitleTextTafDtkmGAqBwAQmu')"><img src="../images/Web_Wireframe1_Initial_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeTafDtkmGAqBwAQmu', 'diagramTafDtkmGAqBwAQmu', 'none', 'elementsTafDtkmGAqBwAQmu', 'PageTitleText', 'pageTitleTextTafDtkmGAqBwAQmu')"><span style="color: black !important" class="TableContent ItemLink">Initial</span></a>				</td>
+			</tr>
+		</table>
+		<div style="position:absolute; z-index:2; width: 3px; height: 40px; left: 980px; top: 245px; background: black; -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -o-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0; -o-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0;">
+		</div>
+		<div style="position:absolute; z-index:2; width: 3px; height: 783px; left: 980px; top: 285px; background: black; -webkit-transform: rotate(84deg); -moz-transform: rotate(84deg); -o-transform: rotate(84deg); -ms-transform: rotate(84deg); transform: rotate(84deg); -webkit-transform-origin: 2px -1px; -moz-transform-origin: 2px -1px; -o-transform-origin: 2px -1px; -ms-transform-origin: 2px -1px; transform-origin: 2px -1px;">
+		</div>
+		<span data-value="Web Wireframe1 - State2" style="display: none;" id="pageTitleTextXmTbtkmGAqBwAQwI">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 30; top: 355; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeXmTbtkmGAqBwAQwI', 'diagramXmTbtkmGAqBwAQwI', 'none', 'elementsXmTbtkmGAqBwAQwI', 'PageTitleText', 'pageTitleTextXmTbtkmGAqBwAQwI')"><img src="../images/Web_Wireframe1_State2_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeXmTbtkmGAqBwAQwI', 'diagramXmTbtkmGAqBwAQwI', 'none', 'elementsXmTbtkmGAqBwAQwI', 'PageTitleText', 'pageTitleTextXmTbtkmGAqBwAQwI')"><span style="color: black !important" class="TableContent ItemLink">State2</span></a>				</td>
+			</tr>
+		</table>
+		<div style="position:absolute; z-index:2; width: 3px; height: 40px; left: 200px; top: 570px; background: black; -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -o-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0; -o-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0;">
+		</div>
+		<div style="position:absolute; z-index:2; width: 3px; height: 70px; left: 200px; top: 610px; background: black; -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -o-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0; -o-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0;">
+		</div>
+		<span data-value="Web Wireframe1 - State22" style="display: none;" id="pageTitleTextKvKmaUmGAqBwATCy">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 30; top: 680; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeKvKmaUmGAqBwATCy', 'diagramKvKmaUmGAqBwATCy', 'none', 'elementsKvKmaUmGAqBwATCy', 'PageTitleText', 'pageTitleTextKvKmaUmGAqBwATCy')"><img src="../images/Web_Wireframe1_State22_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeKvKmaUmGAqBwATCy', 'diagramKvKmaUmGAqBwATCy', 'none', 'elementsKvKmaUmGAqBwATCy', 'PageTitleText', 'pageTitleTextKvKmaUmGAqBwATCy')"><span style="color: black !important" class="TableContent ItemLink">State22</span></a>				</td>
+			</tr>
+		</table>
+		<div style="position:absolute; z-index:2; width: 3px; height: 396px; left: 980px; top: 285px; background: black; -webkit-transform: rotate(79deg); -moz-transform: rotate(79deg); -o-transform: rotate(79deg); -ms-transform: rotate(79deg); transform: rotate(79deg); -webkit-transform-origin: 2px -1px; -moz-transform-origin: 2px -1px; -o-transform-origin: 2px -1px; -ms-transform-origin: 2px -1px; transform-origin: 2px -1px;">
+		</div>
+		<span data-value="Web Wireframe1 - State3" style="display: none;" id="pageTitleTexthpN3tkmGAqBwAQ4J">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 420; top: 355; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapehpN3tkmGAqBwAQ4J', 'diagramhpN3tkmGAqBwAQ4J', 'none', 'elementshpN3tkmGAqBwAQ4J', 'PageTitleText', 'pageTitleTexthpN3tkmGAqBwAQ4J')"><img src="../images/Web_Wireframe1_State3_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapehpN3tkmGAqBwAQ4J', 'diagramhpN3tkmGAqBwAQ4J', 'none', 'elementshpN3tkmGAqBwAQ4J', 'PageTitleText', 'pageTitleTexthpN3tkmGAqBwAQ4J')"><span style="color: black !important" class="TableContent ItemLink">State3</span></a>				</td>
+			</tr>
+		</table>
+		<div style="position:absolute; z-index:2; width: 3px; height: 40px; left: 590px; top: 570px; background: black; -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -o-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0; -o-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0;">
+		</div>
+		<div style="position:absolute; z-index:2; width: 3px; height: 70px; left: 590px; top: 610px; background: black; -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -o-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0; -o-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0;">
+		</div>
+		<span data-value="Web Wireframe1 - State32" style="display: none;" id="pageTitleTextyQUmaUmGAqBwAS4K">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 420; top: 680; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeyQUmaUmGAqBwAS4K', 'diagramyQUmaUmGAqBwAS4K', 'none', 'elementsyQUmaUmGAqBwAS4K', 'PageTitleText', 'pageTitleTextyQUmaUmGAqBwAS4K')"><img src="../images/Web_Wireframe1_State32_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeyQUmaUmGAqBwAS4K', 'diagramyQUmaUmGAqBwAS4K', 'none', 'elementsyQUmaUmGAqBwAS4K', 'PageTitleText', 'pageTitleTextyQUmaUmGAqBwAS4K')"><span style="color: black !important" class="TableContent ItemLink">State32</span></a>				</td>
+			</tr>
+		</table>
+		<div style="position:absolute; z-index:2; width: 3px; height: 70px; left: 980px; top: 285px; background: black; -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -o-transform: rotate(0deg); -ms-transform: rotate(0deg); transform: rotate(0deg); -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0; -o-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0;">
+		</div>
+		<span data-value="Web Wireframe1 - State4" style="display: none;" id="pageTitleTexthznnDkmGAqBwAQhI">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 810; top: 355; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapehznnDkmGAqBwAQhI', 'diagramhznnDkmGAqBwAQhI', 'none', 'elementshznnDkmGAqBwAQhI', 'PageTitleText', 'pageTitleTexthznnDkmGAqBwAQhI')"><img src="../images/Web_Wireframe1_State4_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapehznnDkmGAqBwAQhI', 'diagramhznnDkmGAqBwAQhI', 'none', 'elementshznnDkmGAqBwAQhI', 'PageTitleText', 'pageTitleTexthznnDkmGAqBwAQhI')"><span style="color: black !important" class="TableContent ItemLink">State4</span></a>				</td>
+			</tr>
+		</table>
+		<div style="position:absolute; z-index:2; width: 3px; height: 396px; left: 980px; top: 285px; background: black; -webkit-transform: rotate(-79deg); -moz-transform: rotate(-79deg); -o-transform: rotate(-79deg); -ms-transform: rotate(-79deg); transform: rotate(-79deg); -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0; -o-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0;">
+		</div>
+		<span data-value="Web Wireframe1 - State5" style="display: none;" id="pageTitleTexthcXfDkmGAqBwARV1">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 1200; top: 355; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapehcXfDkmGAqBwARV1', 'diagramhcXfDkmGAqBwARV1', 'none', 'elementshcXfDkmGAqBwARV1', 'PageTitleText', 'pageTitleTexthcXfDkmGAqBwARV1')"><img src="../images/Web_Wireframe1_State5_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapehcXfDkmGAqBwARV1', 'diagramhcXfDkmGAqBwARV1', 'none', 'elementshcXfDkmGAqBwARV1', 'PageTitleText', 'pageTitleTexthcXfDkmGAqBwARV1')"><span style="color: black !important" class="TableContent ItemLink">State5</span></a>				</td>
+			</tr>
+		</table>
+		<div style="position:absolute; z-index:2; width: 3px; height: 783px; left: 980px; top: 285px; background: black; -webkit-transform: rotate(-84deg); -moz-transform: rotate(-84deg); -o-transform: rotate(-84deg); -ms-transform: rotate(-84deg); transform: rotate(-84deg); -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0; -o-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0;">
+		</div>
+		<span data-value="Web Wireframe1 - State6" style="display: none;" id="pageTitleText5IgtUsmGAqBwARNE">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 1590; top: 355; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShape5IgtUsmGAqBwARNE', 'diagram5IgtUsmGAqBwARNE', 'none', 'elements5IgtUsmGAqBwARNE', 'PageTitleText', 'pageTitleText5IgtUsmGAqBwARNE')"><img src="../images/Web_Wireframe1_State6_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShape5IgtUsmGAqBwARNE', 'diagram5IgtUsmGAqBwARNE', 'none', 'elements5IgtUsmGAqBwARNE', 'PageTitleText', 'pageTitleText5IgtUsmGAqBwARNE')"><span style="color: black !important" class="TableContent ItemLink">State6</span></a>				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
